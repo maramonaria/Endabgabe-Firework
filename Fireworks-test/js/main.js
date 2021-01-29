@@ -12,11 +12,19 @@ var Fireworks;
         console.log("Fieldset:", fieldset);
         fieldset.addEventListener("change", handleInfoChange);
         fieldset.addEventListener("input", handleInfoChange);
-        //let submit: HTMLButtonElement = <HTMLButtonElement>document.querySelector("button[id=submitbutton]");
-        //submit.addEventListener("click", sendRocket);
+        let submit = document.querySelector("button[id=submitbutton]");
+        submit.addEventListener("click", sendRocket);
     }
     function generateRockets(_data) {
         console.log("generate Rockets");
+    }
+    async function sendRocket(_event) {
+        console.log("Send rocket");
+        console.log("Bla");
+        let formData = new FormData(form);
+        let query = new URLSearchParams(formData);
+        await fetch("fireworks.html?" + query.toString());
+        alert("Rocket info sent!");
     }
     function handleInfoChange(_event) {
         let target = _event.target;

@@ -17,15 +17,22 @@ namespace Fireworks {
         fieldset.addEventListener("change", handleInfoChange);
         fieldset.addEventListener("input", handleInfoChange);
 
-        //let submit: HTMLButtonElement = <HTMLButtonElement>document.querySelector("button[id=submitbutton]");
-        //submit.addEventListener("click", sendRocket);
+        let submit: HTMLButtonElement = <HTMLButtonElement>document.querySelector("button[id=submitbutton]");
+        submit.addEventListener("click", sendRocket);
     }
 
     function generateRockets(_data: number[]): void {
         console.log("generate Rockets");
     }
 
-    
+    async function sendRocket(_event: Event): Promise<void> {
+        console.log("Send rocket");
+        console.log("Bla");
+        let formData: FormData = new FormData(form);
+        let query: URLSearchParams = new URLSearchParams(<any>formData);
+        await fetch("fireworks.html?" + query.toString());
+        alert("Rocket info sent!");
+    }
 
     function handleInfoChange(_event: Event): void {
         let target: HTMLInputElement = <HTMLInputElement>_event.target;
