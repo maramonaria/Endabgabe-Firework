@@ -13,7 +13,7 @@ namespace Fireworks {
         
         form = <HTMLFormElement>document.querySelector("form");
         let fieldset: HTMLFieldSetElement = <HTMLFieldSetElement>document.querySelector("fieldset");
-        console.log("Fieldsets:", fieldset);
+        console.log("Fieldset:", fieldset);
 
         fieldset.addEventListener("change", handleInfoChange);
         fieldset.addEventListener("input", handleInfoChange);
@@ -44,10 +44,6 @@ namespace Fireworks {
 
         else if (_event.type == "input") {
             console.log("Input " + target);
-        }
-
-        else if (_event.type == "click") {
-            console.log("Click " + target);
         }
     }
 

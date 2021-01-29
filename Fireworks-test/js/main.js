@@ -9,7 +9,7 @@ var Fireworks;
         generateRockets(data);
         form = document.querySelector("form");
         let fieldset = document.querySelector("fieldset");
-        console.log("Fieldsets:", fieldset);
+        console.log("Fieldset:", fieldset);
         fieldset.addEventListener("change", handleInfoChange);
         fieldset.addEventListener("input", handleInfoChange);
         let submit = document.querySelector("button[id=submitbutton]");
@@ -32,9 +32,6 @@ var Fireworks;
         }
         else if (_event.type == "input") {
             console.log("Input " + target);
-        }
-        else if (_event.type == "click") {
-            console.log("Click " + target);
         }
     }
 })(Fireworks || (Fireworks = {}));
