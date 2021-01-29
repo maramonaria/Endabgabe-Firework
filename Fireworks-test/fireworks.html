@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang=en>
+    <head>
+        <title>Fireworks Endabgabe</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com"> 
+        <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap" rel="stylesheet">
+
+        <script src="js/main.js" type="text/javascript"></script>
+        <script src="js/main.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <header>
+            <h1>LET'S DO SOME ROCKET SCIENCE</h1>
+        </header>
+        <section id="sky"></section>
+        <section id="rockets">
+            <h1>Rockets</h1>
+            <canvas id="rocketminion" draggable="true"></canvas>
+            <canvas id="rocketminion" draggable="true"></canvas>
+            <canvas id="rocketminion" draggable="true"></canvas>
+            <canvas id="rocketminion" draggable="true"></canvas>
+            <canvas id="rocketminion" draggable="true"></canvas>
+            <canvas id="rocketminion" draggable="true"></canvas>
+            <canvas id="rocketminion" draggable="true"></canvas>
+            <canvas id="rocketminion" draggable="true"></canvas>
+        </section>
+        <section id="createrockets">
+            <h1>Create New Rockets</h1>
+            <form id="form">
+                <fieldset>
+                    <legend> get creative </legend>
+
+                    <span>
+                        name your new rocket:
+                        <input type="text" name="Rocketname" placeholder="type here"/>
+                    </span>
+
+                    <span>
+                        rocket type:
+                        <p class="radio">
+                            <input type="radio" name="TypeRadiogroup" value="radio1" id="radio1" />
+                            <label for="radio1">ground fireworks</label>
+                        </p>
+                        <p class="radio">
+                            <input type="radio" name="TypeRadiogroup" value="radio2" id="radio2" checked />
+                            <label for="radio2">sky fireworks</label> 
+                        </p>
+                        
+                    </span>
+
+                    <span>
+                        shape of explosion:
+                        <select name="Shape" id="shapeSelect">
+                            <option value="basic" selected>basic shaped</option>
+                            <option value="heart">heart shaped</option>
+                            <option value="mandala">mandala shaped</option>
+                            <option value="star">star shaped</option>
+                            <option value="crisscross">criss cross shaped</option>
+                        </select>
+                    </span>
+
+                    <span>
+                        color one:
+                        <input type="color" name="Color1" placeholder="red" id="color1" value="#ff0000">
+                    </span>
+                    <span>
+                        color two:
+                        <input type="color" name="Color2" placeholder="blue" id="color2" value="#0000ff">
+                    </span>
+                </fieldset>
+            </form>
+            <h1>Preview</h1>
+            <canvas id="preview"></canvas>
+            <button type="button" id="submitbutton" form="form">create rocket</button>
+            <button type="reset" form="form">reset</button>
+        </section>
+    </body>
+</html>
