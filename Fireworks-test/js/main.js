@@ -12,8 +12,8 @@ var Fireworks;
         console.log("Fieldset:", fieldset);
         fieldset.addEventListener("change", handleInfoChange);
         fieldset.addEventListener("input", handleInfoChange);
-        let submit = document.querySelector("button[id=submitbutton]");
-        submit.addEventListener("click", sendRocket);
+        //let submit: HTMLButtonElement = <HTMLButtonElement>document.querySelector("button[id=submitbutton]");
+        //submit.addEventListener("click", sendRocket);
     }
     function generateRockets(_data) {
         console.log("generate Rockets");

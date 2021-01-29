@@ -14,13 +14,11 @@ namespace Fireworks {
         form = <HTMLFormElement>document.querySelector("form");
         let fieldset: HTMLFieldSetElement = <HTMLFieldSetElement>document.querySelector("fieldset");
         console.log("Fieldset:", fieldset);
-
         fieldset.addEventListener("change", handleInfoChange);
         fieldset.addEventListener("input", handleInfoChange);
 
-
-        let submit: HTMLButtonElement = <HTMLButtonElement>document.querySelector("button[id=submitbutton]");
-        submit.addEventListener("click", sendRocket);
+        //let submit: HTMLButtonElement = <HTMLButtonElement>document.querySelector("button[id=submitbutton]");
+        //submit.addEventListener("click", sendRocket);
     }
 
     function generateRockets(_data: number[]): void {
