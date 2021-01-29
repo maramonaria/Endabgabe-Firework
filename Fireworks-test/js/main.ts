@@ -25,13 +25,7 @@ namespace Fireworks {
         console.log("generate Rockets");
     }
 
-    async function sendRocket(_event: Event): Promise<void> {
-        console.log("Send rocket");
-        let formData: FormData = new FormData(form);
-        let query: URLSearchParams = new URLSearchParams(<any>formData);
-        await fetch("fireworks.html?" + query.toString());
-        alert("Rocket info sent!");
-    }
+    
 
     function handleInfoChange(_event: Event): void {
         let target: HTMLInputElement = <HTMLInputElement>_event.target;

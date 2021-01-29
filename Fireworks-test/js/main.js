@@ -18,13 +18,6 @@ var Fireworks;
     function generateRockets(_data) {
         console.log("generate Rockets");
     }
-    async function sendRocket(_event) {
-        console.log("Send rocket");
-        let formData = new FormData(form);
-        let query = new URLSearchParams(formData);
-        await fetch("fireworks.html?" + query.toString());
-        alert("Rocket info sent!");
-    }
     function handleInfoChange(_event) {
         let target = _event.target;
         if (_event.type == "change") {
