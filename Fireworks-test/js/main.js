@@ -20,7 +20,7 @@ var Fireworks;
     }
     async function sendRocket(_event) {
         console.log("Send rocket");
-        console.log("Bla");
+        console.log("Ba");
         let formData = new FormData(form);
         let query = new URLSearchParams(formData);
         await fetch("fireworks.html?" + query.toString());
