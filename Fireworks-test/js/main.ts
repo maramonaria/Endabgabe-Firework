@@ -30,6 +30,7 @@ namespace Fireworks {
         let formData: FormData = new FormData(form);
         let query: URLSearchParams = new URLSearchParams(<any>formData);
         await fetch("fireworks.html?" + query.toString());
+        console.log(query);
         alert("Rocket info sent!");
     }
 

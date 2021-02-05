@@ -23,6 +23,7 @@ var Fireworks;
         let formData = new FormData(form);
         let query = new URLSearchParams(formData);
         await fetch("fireworks.html?" + query.toString());
+        console.log(query);
         alert("Rocket info sent!");
     }
     function handleInfoChange(_event) {
