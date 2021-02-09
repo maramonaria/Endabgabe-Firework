@@ -28,8 +28,6 @@ label{
 }
 
 #bgsky{
-    width: 60vw;
-    height: 100vh;
     background-color: rgb(3, 4, 10);
 }
 
@@ -48,17 +46,13 @@ label{
 }
 
 #rocketminion{
-    width:7vw;
-    height:7vw;
     background-color: rgb(3, 4, 10);
     margin-left:4vw;
     margin-top:1vw;
 }
 
 #preview{
-    width: 20vw;
-    height: 20vw;
-    background-color: rgb(3, 4, 10);
+    background-color: #03040a;
     margin-left:2.5vw;
     margin-bottom:1vw;
 
