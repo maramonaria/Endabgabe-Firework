@@ -12,7 +12,7 @@ namespace Fireworks {
     
 
     let form: HTMLFormElement;
-    let rocketminions: RocketMinion[]; // will contain all existing rockets from database
+    let rocketminions: Rocket[]; // will contain all existing rockets from database
     let rockets: Rocket[] = []; // rockets that are currently doing their thing on screen
 
 
@@ -27,6 +27,11 @@ namespace Fireworks {
         fireworkCanvas.width = viewportWidth / 100 * 60;
         fireworkCanvas.height = viewportHeight;
         crc2 = <CanvasRenderingContext2D>fireworkCanvas.getContext("2d");
+
+        // Drop functionality for main canvas
+        fireworkCanvas.addEventListener("drop", handleDrop);
+        fireworkCanvas.addEventListener("dragover", handleDragOver);
+
         previewCanvas = <HTMLCanvasElement>document.querySelector("canvas[id=preview]");
         previewCanvas.width = viewportWidth / 100 * 20;
         previewCanvas.height = viewportWidth / 100 * 20;
@@ -34,9 +39,9 @@ namespace Fireworks {
 
         // get previously created rockets from database
         let databaseLength: number = 3;
-        let database: string[][] = [["bluefire", "basic", "20", "doublering", "50", "ff0000"], 
-                                    ["halo", "heart", "10", "singlering", "20", "00fa00"],
-                                    ["Rocky", "star", "20", "scatter", "40", "fffc00"]
+        let database: string[][] = [["bluefire", "basic", "20", "1", "doublering", "ff0000"], 
+                                    ["halo", "heart", "10", "2", "singlering", "00fa00"],
+                                    ["Rocky", "star", "20", "3", "scatter", "fffc00"]
                                 ];
 
         // clear all pre-existing rocketminions from array and html
@@ -72,23 +77,91 @@ namespace Fireworks {
         
         let miniCanvas: HTMLCanvasElement = <HTMLCanvasElement>document.createElement("canvas");
         miniCanvas.setAttribute("id", "rocketminion");
-        miniCanvas.setAttribute("draggable", "true");
-        miniCanvas.setAttribute("index", "rocket" + _index);
+        miniCanvas.setAttribute("index", _index);
         miniCanvas.width = viewportWidth / 100 * 7;
         miniCanvas.height = viewportWidth / 100 * 7;
+
+        // Drag and Drop functionality
+        miniCanvas.draggable = true;
+        miniCanvas.addEventListener("dragstart", handleDragStart);
+
 
 
         let miniContext: CanvasRenderingContext2D = <CanvasRenderingContext2D>miniCanvas.getContext("2d");
         
-    
         console.log(_rocketData);
-        let rocket: RocketMinion = new RocketMinion (_rocketData[0], _rocketData[1], parseInt(_rocketData[2]), _rocketData[3], parseInt(_rocketData[4]), "#" + _rocketData[5]);
-        rocketminions.push(rocket);
-        rocket.drawPreview(miniContext, miniCanvas.width, miniCanvas.height);
-        
+        //let rocket: RocketMinion = new RocketMinion (_rocketData[0], _rocketData[1], parseInt(_rocketData[2]), _rocketData[3], parseInt(_rocketData[4]), "#" + _rocketData[5]);
+        let rocket: Rocket;
+        let explosionCenter: Vector = new Vector(miniCanvas.width / 2, miniCanvas.height / 2);
+        switch (_rocketData[4]) {
+            case "scatter":
+                rocket = new ScatterRocket(_rocketData[0], _rocketData[1], parseInt(_rocketData[2]), parseInt(_rocketData[3]), _rocketData[5], explosionCenter);
+                rocketminions.push(rocket);
+                rocket.drawPreview(miniContext, miniCanvas.width, miniCanvas.height);
+                break;
+            case "singlering":
+                rocket = new SingleRingRocket(_rocketData[0], _rocketData[1], parseInt(_rocketData[2]), parseInt(_rocketData[3]), _rocketData[5], explosionCenter);
+                rocketminions.push(rocket);
+                rocket.drawPreview(miniContext, miniCanvas.width, miniCanvas.height);
+                break;
+            case "doublering":
+                rocket = new DoubleRingRocket(_rocketData[0], _rocketData[1], parseInt(_rocketData[2]), parseInt(_rocketData[3]), _rocketData[5], explosionCenter);
+                rocketminions.push(rocket);
+                rocket.drawPreview(miniContext, miniCanvas.width, miniCanvas.height);
+                break;
+        }   
 
         if (section)
             section.appendChild(miniCanvas);
+    }
+
+    function handleDragStart(_event: DragEvent): void {
+        if (!_event.dataTransfer)
+            return;
+
+        let target: HTMLCanvasElement = <HTMLCanvasElement>_event.target;
+
+        let minionIndex: string | null = target.getAttribute("index");
+        console.log("Index of rocket is ", minionIndex);
+        //let rocket: Rocket = rocketminions[minionIndex];
+
+        if (!minionIndex)
+            return;
+        _event.dataTransfer.setData("rocket", minionIndex);
+    }
+
+    function handleDragOver(_event: DragEvent): void {
+        _event.preventDefault();  
+    }
+
+    function handleDrop(_event: DragEvent): void {
+        if (!_event.dataTransfer)
+            return;
+        
+        let minionIndex: string = _event.dataTransfer.getData("rocket");
+        console.log(minionIndex);
+        let rocket: Rocket = rocketminions[parseInt(minionIndex)];
+
+        // get the mouse position of the drop
+        let mousePos: Vector;
+        let rect: DOMRect | undefined;
+        if (fireworkCanvas) {
+            rect = fireworkCanvas.getBoundingClientRect();
+        }
+        if (rect == undefined)
+            return;
+        let x: number = _event.clientX - rect.left;
+        let y: number = _event.clientY - rect.top;
+        mousePos = new Vector(x, y);
+
+        // rocket will explode at the drop position
+        rocket.explosionCenter = mousePos.copy();
+
+        // but it starts flying up from the bottom of the canvas
+        rocket.position = new Vector(x, 0);
+
+        rockets.push(rocket);
+        // now start exploding!!
     }
 
 
@@ -113,17 +186,32 @@ namespace Fireworks {
 
         let formData: FormData = new FormData(form);
 
-        let preview: RocketMinion;
+        let preview: Rocket;
         let name: string = "" + formData.get("Name");
         let particleShape: string = "" + formData.get("ParticleShape");
         let particleCount: number = 0 + parseInt("" + formData.get("ParticleCount"));
         let explosionShape: string = "" + formData.get("ExplosionShape");
-        let height: number = parseInt("" + formData.get("HeightSlider"));
+        let dimension: number = parseInt("" + formData.get("DimensionSlider"));
         let color: string = "" + formData.get("Color");
 
+        let explosionCenter: Vector = new Vector(previewCanvas.width / 2, previewCanvas.height / 2);
+
         previewContext.save();
-        preview = new RocketMinion(name, particleShape, particleCount, explosionShape, height, color);
-        preview.drawPreview(previewContext, previewCanvas.width, previewCanvas.height);
+
+        switch (explosionShape) {
+            case "scatter":
+                preview = new ScatterRocket(name, particleShape, particleCount, dimension, color, explosionCenter);
+                preview.drawPreview(previewContext, previewCanvas.width, previewCanvas.height);
+                break;
+            case "singlering":
+                preview = new SingleRingRocket(name, particleShape, particleCount, dimension, color, explosionCenter);
+                preview.drawPreview(previewContext, previewCanvas.width, previewCanvas.height);
+                break;
+            case "doublering":
+                preview = new DoubleRingRocket(name, particleShape, particleCount, dimension, color, explosionCenter);
+                preview.drawPreview(previewContext, previewCanvas.width, previewCanvas.height);
+                break;
+        }
         previewContext.restore();
     }
 
