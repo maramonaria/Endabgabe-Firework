@@ -5,8 +5,6 @@ var Fireworks;
         constructor(_name, _particleShape, _particleCount, _dimension, _color, _explosionCenter, _velocity) {
             super(_name, _particleShape, _particleCount, _dimension, _color, _explosionCenter, _velocity);
         }
-        draw() {
-        }
         drawPreview(_context, _canvasWidth, _canvasHeight) {
             super.drawPreview(_context, _canvasWidth, _canvasHeight);
             _context.save();
@@ -23,9 +21,13 @@ var Fireworks;
                 let randomY = (_canvasHeight / 15) + Math.random() * (_canvasHeight - (_canvasHeight / 4));
                 position = new Fireworks.Vector(randomX, randomY);
                 let particle = new Fireworks.Particle(position, this.particleShape, radiusParticle, this.color);
-                particle.draw(_context, radiusParticle);
+                particle.explode();
+                particle.draw(_context);
             }
             _context.restore();
+        }
+        copy() {
+            return new ScatterRocket(this.name, this.particleShape, this.particleCount, this.dimension, this.color, this.explosionCenter, this.velocity);
         }
     }
     Fireworks.ScatterRocket = ScatterRocket;

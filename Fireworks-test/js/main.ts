@@ -41,7 +41,7 @@ namespace Fireworks {
         let databaseLength: number = 3;
         let database: string[][] = [["bluefire", "basic", "20", "1", "doublering", "ff0000"], 
                                     ["halo", "heart", "10", "2", "singlering", "00fa00"],
-                                    ["Rocky", "star", "20", "3", "scatter", "fffc00"]
+                                    ["Rocky", "star", "10", "3", "singlering", "fffc00"]
                                 ];
 
         // clear all pre-existing rocketminions from array and html
@@ -70,6 +70,8 @@ namespace Fireworks {
         submit.addEventListener("click", sendRocket);
 
         updatePreview();
+
+        window.setInterval(update, 20);
     }
 
     function createRocketMinion(_rocketData: string[], _index: string): void {
@@ -140,7 +142,7 @@ namespace Fireworks {
         
         let minionIndex: string = _event.dataTransfer.getData("rocket");
         console.log(minionIndex);
-        let rocket: Rocket = rocketminions[parseInt(minionIndex)];
+        let rocket: Rocket = rocketminions[parseInt(minionIndex)].copy();
 
         // get the mouse position of the drop
         let mousePos: Vector;
@@ -158,10 +160,40 @@ namespace Fireworks {
         rocket.explosionCenter = mousePos.copy();
 
         // but it starts flying up from the bottom of the canvas
-        rocket.position = new Vector(x, 0);
+        rocket.position = new Vector(x, crc2.canvas.height);
+        rocket.launch();
 
         rockets.push(rocket);
+        console.log("Rockets array after drop: ", rockets);
         // now start exploding!!
+        //if (fireworkCanvas)
+        //    rocket.drawPreview(crc2, fireworkCanvas.width, fireworkCanvas.height);
+    }
+
+    function update(): void {
+
+
+        console.log("update");
+        crc2.save();
+        crc2.fillStyle = "HSLA(231, 54%, 3%, 0.4)";
+        crc2.fillRect(0, 0, crc2.canvas.width, crc2.canvas.height);
+        crc2.restore();
+
+        let i: number = 0;
+        for (let rocket of rockets) {
+            if (!rocket.expired) {
+                crc2.save();
+                rocket.move(1 / 50);
+                rocket.draw();
+                crc2.restore();
+            }
+            else {
+                rockets.splice(i, 1);
+                i -= 1;
+            }
+            i += 1;
+        }
+        console.log("rockets array:", rockets);
     }
 
 

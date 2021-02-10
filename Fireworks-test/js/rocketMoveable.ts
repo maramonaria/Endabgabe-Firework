@@ -9,6 +9,8 @@ namespace Fireworks {
         public dimension: number;
         public color: string;
         public exploded: boolean = false;
+        public expired: boolean = false;
+        protected particles: Particle[] = [];
 
         constructor(_name: string, _particleShape: string, _particleCount: number, _dimension: number, _color: string, _explosionCenter: Vector, _velocity?: Vector) {
             this.name = _name;
@@ -17,8 +19,8 @@ namespace Fireworks {
             this.dimension = _dimension;
             this.color = _color;
             this.explosionCenter = _explosionCenter.copy();
-            this.position = new Vector(this.explosionCenter.x, 0);
-            this.velocity = new Vector(0, 0);
+            this.position = new Vector(this.explosionCenter.x, crc2.canvas.height);
+            this.velocity = new Vector(0, - 500); // set how fast the rocket flies up to its explosion center
         }
 
         public explode(): void {
@@ -26,9 +28,31 @@ namespace Fireworks {
         }
 
         public move(_timeslice: number): void {
-            let offset: Vector = this.velocity.copy();
-            offset.scale(_timeslice);
-            this.position.add(offset);
+                        
+            let i: number = 0; // index of particle in particles array
+            for (let particle of this.particles) {
+                if (particle.exploded) {
+                particle.lifetime -= 1;
+                }
+                particle.move(_timeslice);
+                particle.draw(crc2);
+
+                if (particle.lifetime < 1) {
+                    this.particles.splice(i, 1);
+                    i -= 1;
+                }
+                i += 1;
+            }     
+            
+            if (this.particles.length < 1) {
+                this.expired = true;
+                return;
+            }   
+        }
+
+        public launch(): void {
+            let startingParticle: Particle = new Particle(this.position, this.particleShape, viewportWidth / 200, this.color, this.velocity);
+            this.particles.push(startingParticle);
         }
 
         public drawPreview(_context: CanvasRenderingContext2D, _canvasWidth: number, _canvasHeight: number): void {
@@ -40,6 +64,12 @@ namespace Fireworks {
             _context.restore();
         }
 
-        public abstract draw(): void;
+        public draw(): void {
+            for (let particle of this.particles) {
+                particle.draw(crc2);
+            }
+        }
+
+        public abstract copy(): Rocket;
     }
 }

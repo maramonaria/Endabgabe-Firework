@@ -5,8 +5,38 @@ namespace Fireworks {
             super(_name, _particleShape, _particleCount, _dimension, _color, _explosionCenter, _velocity);
         }
 
-        draw(): void {
+        move(_timeslice: number): void {
+            // if startingParticle is ready to explode: initiate all exploded Particles
+            if (this.particles.length == 1 && (this.particles[0].position.y - this.explosionCenter.y) < 1 && !this.particles[0].exploded) {
+                this.particles.splice(0, 1);
 
+                let explosionRadiusBig: number = this.dimension * 100; //larger ring
+                let explosionRadiusSmall: number = this.dimension * 50; //smaller ring
+
+                let ringPosition: Vector;
+                let newVelocity: Vector;
+
+                for (let i: number = 0; i < this.particleCount; i++) {
+                    let a: number = 2 * Math.PI * i / this.particleCount;
+                    let particle: Particle;
+
+                    if (i % 2 == 0) {
+                        ringPosition = new Vector(this.explosionCenter.x + explosionRadiusBig * Math.sin(a), this.explosionCenter.y + explosionRadiusBig * Math.cos(a));
+                        newVelocity = Vector.getDifference(this.explosionCenter, ringPosition);
+                    }
+                    else {
+                        ringPosition = new Vector(this.explosionCenter.x + explosionRadiusSmall * Math.sin(a), this.explosionCenter.y + explosionRadiusSmall * Math.cos(a));
+                        newVelocity = Vector.getDifference(this.explosionCenter, ringPosition); 
+                    }
+                    
+                    particle = new Particle(this.explosionCenter, this.particleShape, viewportWidth / 200, this.color, newVelocity);
+                    particle.explode();
+                    this.particles.push(particle);
+
+                }
+
+            }
+            super.move(_timeslice);
         }
 
         drawPreview(_context: CanvasRenderingContext2D, _canvasWidth: number, _canvasHeight: number): void {
@@ -29,15 +59,21 @@ namespace Fireworks {
                 let a: number = 2 * Math.PI * i / this.particleCount;
                 position = new Vector(this.explosionCenter.x + explosionRadius * Math.sin(a), this.explosionCenter.y + explosionRadius * Math.cos(a));
                 let particle: Particle = new Particle(position, this.particleShape, radiusParticle, this.color);
-                particle.draw(_context, radiusParticle);
+                particle.explode();
+                particle.draw(_context);
                 _context.restore();
                 explosionRadius = explosionRadius / 2;
                 position = new Vector(this.explosionCenter.x + explosionRadius * Math.sin(a), this.explosionCenter.y + explosionRadius * Math.cos(a));
                 particle = new Particle(position, this.particleShape, radiusParticle, this.color);
-                particle.draw(_context, radiusParticle);
+                particle.explode();
+                particle.draw(_context);
                 
             }
             _context.restore();
+        }
+
+        public copy(): DoubleRingRocket {
+            return new DoubleRingRocket(this.name, this.particleShape, this.particleCount, this.dimension, this.color, this.explosionCenter, this.velocity);
         }
     }
 }

@@ -5,10 +5,6 @@ namespace Fireworks {
             super(_name, _particleShape, _particleCount, _dimension, _color, _explosionCenter, _velocity);
         }
 
-        draw(): void {
-
-        }
-
         drawPreview(_context: CanvasRenderingContext2D, _canvasWidth: number, _canvasHeight: number): void {
             super.drawPreview(_context, _canvasWidth, _canvasHeight);
             _context.save();
@@ -26,9 +22,14 @@ namespace Fireworks {
                 let randomY: number = (_canvasHeight / 15) + Math.random() * (_canvasHeight - (_canvasHeight / 4));
                 position = new Vector(randomX, randomY);
                 let particle: Particle = new Particle(position, this.particleShape, radiusParticle, this.color);
-                particle.draw(_context, radiusParticle);
+                particle.explode();
+                particle.draw(_context);
             }
             _context.restore();
+        }
+
+        public copy(): ScatterRocket {
+            return new ScatterRocket(this.name, this.particleShape, this.particleCount, this.dimension, this.color, this.explosionCenter, this.velocity);
         }
     }
 }
