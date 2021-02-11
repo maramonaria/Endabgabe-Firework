@@ -14,7 +14,7 @@ namespace Fireworks {
     let rocketminions: Rocket[]; // will contain all existing rockets from database
     let rockets: Rocket[] = []; // rockets that are currently doing their thing on screen
 
-    let url: string = "http://localhost:5001";
+    let url: string = "https://rocketsciencecenter.herokuapp.com";
 
     // get previously created rockets from database
     let database: string[][] = [["bluefire", "basic", "20", "1", "doublering", "ff0000"], 
