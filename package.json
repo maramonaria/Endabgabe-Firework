@@ -1,24 +1,23 @@
 {
-  "name": "Endabgabe-Firework",
+  "name": "rocketsciencecenter",
   "version": "1.0.0",
-  "description": "",
-  "main": "main.js",
+  "description": "A rocket generating Application",
+  "main": "Fireworks-test/js/main.js",
+  "dependencies": {
+    "typescript": "^4.1.3"
+  },
+  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node Fireworks-test/js/main.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/maramonaria/Endabgabe-Firework.git"
   },
-  "keywords": [],
-  "author": "",
+  "author": "Ramona Gihr",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/maramonaria/Endabgabe-Firework/issues"
   },
-  "homepage": "https://github.com/maramonaria/Endabgabe-Firework#readme",
-  "devDependencies": {
-    "@types/node": "^14.14.25",
-    "typescript": "^4.1.3"
-  }
+  "homepage": "https://github.com/maramonaria/Endabgabe-Firework#readme"
 }
