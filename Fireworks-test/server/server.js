@@ -29,6 +29,7 @@ var Fireworks;
         //console.log("What's up?");
         _response.setHeader("content-type", "text/html; charset=utf-8");
         _response.setHeader("Access-Control-Allow-Origin", "*");
+        console.log("ERROR noooow");
         if (_request.url) {
             let url = Url.parse(_request.url, true);
             let jsonString = JSON.stringify(url.query);
