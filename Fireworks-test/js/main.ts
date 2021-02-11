@@ -43,9 +43,9 @@ namespace Fireworks {
         previewCanvas.height = viewportWidth / 100 * 20;
         previewContext = <CanvasRenderingContext2D>previewCanvas.getContext("2d");
 
-        let response: Response = await fetch("Data.json");
-        let offer: string = await response.text();
-        let data: Data = JSON.parse(offer);
+        //let response: Response = await fetch("Data.json");
+        //let offer: string = await response.text();
+        //let data: Data = JSON.parse(offer);
 
         setupRocketMinions();
         
