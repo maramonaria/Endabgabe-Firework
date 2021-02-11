@@ -44,6 +44,7 @@ namespace Fireworks {
         previewContext = <CanvasRenderingContext2D>previewCanvas.getContext("2d");
 
         let response: Response = await fetch("Data.json");
+        response.headers.set("Access-Control-Allow-Origin", "*");
         let offer: string = await response.text();
         let data: Data = JSON.parse(offer);
 
@@ -66,6 +67,7 @@ namespace Fireworks {
         let formData: FormData = new FormData(form);
         let query: URLSearchParams = new URLSearchParams(<any>formData);
         let response: Response = await fetch(url + "?" + query.toString());
+        response.headers.set("Access-Control-Allow-Origin", "*");
         let responseText: string = await response.text();
         alert(responseText);
         
