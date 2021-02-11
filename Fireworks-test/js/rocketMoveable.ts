@@ -35,7 +35,6 @@ namespace Fireworks {
                 particle.lifetime -= 1;
                 }
                 particle.move(_timeslice);
-                particle.draw(crc2);
 
                 if (particle.lifetime < 1) {
                     this.particles.splice(i, 1);
@@ -60,6 +59,10 @@ namespace Fireworks {
             _context.save();
             _context.font = "15px Arial";
             _context.fillStyle = this.color;
+            _context.strokeStyle = "black";
+            _context.lineWidth = 2;
+
+            _context.strokeText(this.name, 5, _canvasHeight - 5);
             _context.fillText(this.name, 5, _canvasHeight - 5);
             _context.restore();
         }

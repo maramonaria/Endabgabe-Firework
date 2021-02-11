@@ -16,8 +16,8 @@ namespace Fireworks {
                 let ringPosition: Vector;
                 let newVelocity: Vector;
 
-                for (let i: number = 0; i < this.particleCount; i++) {
-                    let a: number = 2 * Math.PI * i / this.particleCount;
+                for (let i: number = 0; i < this.particleCount * 2; i++) {
+                    let a: number = Math.PI * i / this.particleCount;
                     let particle: Particle;
 
                     if (i % 2 == 0) {
@@ -40,7 +40,6 @@ namespace Fireworks {
         }
 
         drawPreview(_context: CanvasRenderingContext2D, _canvasWidth: number, _canvasHeight: number): void {
-            super.drawPreview(_context, _canvasWidth, _canvasHeight);
             _context.save();
 
             let radiusParticle: number;
@@ -52,24 +51,22 @@ namespace Fireworks {
             }
             let position: Vector;
 
-            let explosionRadius: number = _canvasWidth / 4;
-            for (let i: number = 0; i < this.particleCount; i++) {
+            let outerRadius: number = _canvasWidth / 3;
+            let innerRadius: number = _canvasWidth / 5;
+
+            for (let i: number = 0; i < 2 * this.particleCount; i++) {
                 _context.save();
-                explosionRadius = _canvasWidth / 3;
-                let a: number = 2 * Math.PI * i / this.particleCount;
-                position = new Vector(this.explosionCenter.x + explosionRadius * Math.sin(a), this.explosionCenter.y + explosionRadius * Math.cos(a));
-                let particle: Particle = new Particle(position, this.particleShape, radiusParticle, this.color);
-                particle.explode();
-                particle.draw(_context);
-                _context.restore();
-                explosionRadius = explosionRadius / 2;
+                let explosionRadius: number = (i % 2 == 0) ? outerRadius : innerRadius;
+                let a: number = Math.PI * i / this.particleCount;
+                let particle: Particle;
                 position = new Vector(this.explosionCenter.x + explosionRadius * Math.sin(a), this.explosionCenter.y + explosionRadius * Math.cos(a));
                 particle = new Particle(position, this.particleShape, radiusParticle, this.color);
                 particle.explode();
                 particle.draw(_context);
-                
+                _context.restore();
             }
             _context.restore();
+            super.drawPreview(_context, _canvasWidth, _canvasHeight);
         }
 
         public copy(): DoubleRingRocket {

@@ -32,9 +32,7 @@ namespace Fireworks {
         }
 
 
-
         drawPreview(_context: CanvasRenderingContext2D, _canvasWidth: number, _canvasHeight: number): void {
-            super.drawPreview(_context, _canvasWidth, _canvasHeight);
             _context.save();
 
             let radiusParticle: number;
@@ -46,7 +44,8 @@ namespace Fireworks {
             }
             let position: Vector;
 
-            let explosionRadius: number = _canvasWidth / 4;
+
+            let explosionRadius: number = _canvasWidth / 7 * this.dimension;
             for (let i: number = 0; i < this.particleCount; i++) {
                 let a: number = 2 * Math.PI * i / this.particleCount;
                 position = new Vector(this.explosionCenter.x + explosionRadius * Math.sin(a), this.explosionCenter.y + explosionRadius * Math.cos(a));
@@ -55,6 +54,7 @@ namespace Fireworks {
                 particle.draw(_context);
             }
             _context.restore();
+            super.drawPreview(_context, _canvasWidth, _canvasHeight);
         }
 
         public copy(): SingleRingRocket {

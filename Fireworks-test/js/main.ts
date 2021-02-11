@@ -10,13 +10,19 @@ namespace Fireworks {
     export let previewCanvas: HTMLCanvasElement;
     export let previewContext: CanvasRenderingContext2D;
     
-
     let form: HTMLFormElement;
     let rocketminions: Rocket[]; // will contain all existing rockets from database
     let rockets: Rocket[] = []; // rockets that are currently doing their thing on screen
 
+    let url: string = "http://localhost:5001";
 
-    function handleLoad(_event: Event): void {
+    // get previously created rockets from database
+    let database: string[][] = [["bluefire", "basic", "20", "1", "doublering", "ff0000"], 
+                                ["halo", "heart", "10", "2", "singlering", "00fa00"],
+                                ["Rocky", "star", "10", "3", "singlering", "fffc00"]
+                                ];
+
+    async function handleLoad(): Promise<void> {
         console.log("Fireworks starting");
 
         onWindowResize(); //get vieport measurements
@@ -37,15 +43,32 @@ namespace Fireworks {
         previewCanvas.height = viewportWidth / 100 * 20;
         previewContext = <CanvasRenderingContext2D>previewCanvas.getContext("2d");
 
-        // get previously created rockets from database
-        let databaseLength: number = 3;
-        let database: string[][] = [["bluefire", "basic", "20", "1", "doublering", "ff0000"], 
-                                    ["halo", "heart", "10", "2", "singlering", "00fa00"],
-                                    ["Rocky", "star", "10", "3", "singlering", "fffc00"]
-                                ];
+        setupRocketMinions();
+        
+        form = <HTMLFormElement>document.querySelector("form");
+        form.addEventListener("change", handleChange);
 
+        let submit: HTMLButtonElement = <HTMLButtonElement>document.querySelector("button[id=submitbutton]");
+        submit.addEventListener("click", sendRocket);
+
+        updatePreview();
+        window.setInterval(update, 20);
+    }
+
+    async function sendRocket(_event: Event): Promise<void> {
+        console.log("Send rocket");
+        let formData: FormData = new FormData(form);
+        let query: URLSearchParams = new URLSearchParams(<any>formData);
+        let response: Response = await fetch(url + "?" + query.toString());
+        let responseText: string = await response.text();
+        alert(responseText);
+        handleLoad();
+        form.reset();
+        updatePreview();
+    }
+
+    function setupRocketMinions(): void {
         // clear all pre-existing rocketminions from array and html
-
         rocketminions = [];
         let section: HTMLElement | null = document.getElementById("rockets");
         if (section) {
@@ -57,21 +80,10 @@ namespace Fireworks {
         }
 
         //create the rocket minions
-        for (let r: number = 0; r < databaseLength; r++) {
+        for (let r: number = 0; r < database.length; r++) {
             let datastring: string[] = database[r];
             createRocketMinion(datastring, r.toString());
         }
-        
-
-        form = <HTMLFormElement>document.querySelector("form");
-        form.addEventListener("change", handleChange);
-
-        let submit: HTMLButtonElement = <HTMLButtonElement>document.querySelector("button[id=submitbutton]");
-        submit.addEventListener("click", sendRocket);
-
-        updatePreview();
-
-        window.setInterval(update, 20);
     }
 
     function createRocketMinion(_rocketData: string[], _index: string): void {
@@ -87,12 +99,8 @@ namespace Fireworks {
         miniCanvas.draggable = true;
         miniCanvas.addEventListener("dragstart", handleDragStart);
 
-
-
         let miniContext: CanvasRenderingContext2D = <CanvasRenderingContext2D>miniCanvas.getContext("2d");
         
-        console.log(_rocketData);
-        //let rocket: RocketMinion = new RocketMinion (_rocketData[0], _rocketData[1], parseInt(_rocketData[2]), _rocketData[3], parseInt(_rocketData[4]), "#" + _rocketData[5]);
         let rocket: Rocket;
         let explosionCenter: Vector = new Vector(miniCanvas.width / 2, miniCanvas.height / 2);
         switch (_rocketData[4]) {
@@ -111,7 +119,7 @@ namespace Fireworks {
                 rocketminions.push(rocket);
                 rocket.drawPreview(miniContext, miniCanvas.width, miniCanvas.height);
                 break;
-        }   
+        }       
 
         if (section)
             section.appendChild(miniCanvas);
@@ -122,10 +130,7 @@ namespace Fireworks {
             return;
 
         let target: HTMLCanvasElement = <HTMLCanvasElement>_event.target;
-
         let minionIndex: string | null = target.getAttribute("index");
-        console.log("Index of rocket is ", minionIndex);
-        //let rocket: Rocket = rocketminions[minionIndex];
 
         if (!minionIndex)
             return;
@@ -144,7 +149,7 @@ namespace Fireworks {
         console.log(minionIndex);
         let rocket: Rocket = rocketminions[parseInt(minionIndex)].copy();
 
-        // get the mouse position of the drop
+        // get the mouse position of the drop relative to the canvas
         let mousePos: Vector;
         let rect: DOMRect | undefined;
         if (fireworkCanvas) {
@@ -164,14 +169,9 @@ namespace Fireworks {
         rocket.launch();
 
         rockets.push(rocket);
-        console.log("Rockets array after drop: ", rockets);
-        // now start exploding!!
-        //if (fireworkCanvas)
-        //    rocket.drawPreview(crc2, fireworkCanvas.width, fireworkCanvas.height);
     }
 
     function update(): void {
-
 
         console.log("update");
         crc2.save();
@@ -194,16 +194,6 @@ namespace Fireworks {
             i += 1;
         }
         console.log("rockets array:", rockets);
-    }
-
-
-    async function sendRocket(_event: Event): Promise<void> {
-        console.log("Send rocket");
-        let formData: FormData = new FormData(form);
-        let query: URLSearchParams = new URLSearchParams(<any>formData);
-        await fetch("fireworks.html?" + query.toString());
-        console.log("QUERY" + query);
-        alert("Rocket info sent!");
     }
 
     function handleChange(_event: Event): void {
@@ -251,5 +241,4 @@ namespace Fireworks {
         viewportWidth = window.innerWidth;
         viewportHeight = window.innerHeight;
       }
-
 }

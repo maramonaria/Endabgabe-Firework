@@ -6,7 +6,6 @@ var Fireworks;
             super(_name, _particleShape, _particleCount, _dimension, _color, _explosionCenter, _velocity);
         }
         drawPreview(_context, _canvasWidth, _canvasHeight) {
-            super.drawPreview(_context, _canvasWidth, _canvasHeight);
             _context.save();
             let radiusParticle;
             if (_context == Fireworks.previewContext) {
@@ -25,6 +24,7 @@ var Fireworks;
                 particle.draw(_context);
             }
             _context.restore();
+            super.drawPreview(_context, _canvasWidth, _canvasHeight);
         }
         copy() {
             return new ScatterRocket(this.name, this.particleShape, this.particleCount, this.dimension, this.color, this.explosionCenter, this.velocity);

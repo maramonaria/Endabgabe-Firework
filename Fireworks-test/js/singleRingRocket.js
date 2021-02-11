@@ -27,7 +27,6 @@ var Fireworks;
             super.move(_timeslice);
         }
         drawPreview(_context, _canvasWidth, _canvasHeight) {
-            super.drawPreview(_context, _canvasWidth, _canvasHeight);
             _context.save();
             let radiusParticle;
             if (_context == Fireworks.previewContext) {
@@ -37,7 +36,7 @@ var Fireworks;
                 radiusParticle = _canvasWidth / 20;
             }
             let position;
-            let explosionRadius = _canvasWidth / 4;
+            let explosionRadius = _canvasWidth / 7 * this.dimension;
             for (let i = 0; i < this.particleCount; i++) {
                 let a = 2 * Math.PI * i / this.particleCount;
                 position = new Fireworks.Vector(this.explosionCenter.x + explosionRadius * Math.sin(a), this.explosionCenter.y + explosionRadius * Math.cos(a));
@@ -46,6 +45,7 @@ var Fireworks;
                 particle.draw(_context);
             }
             _context.restore();
+            super.drawPreview(_context, _canvasWidth, _canvasHeight);
         }
         copy() {
             return new SingleRingRocket(this.name, this.particleShape, this.particleCount, this.dimension, this.color, this.explosionCenter, this.velocity);

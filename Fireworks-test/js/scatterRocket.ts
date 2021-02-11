@@ -6,7 +6,6 @@ namespace Fireworks {
         }
 
         drawPreview(_context: CanvasRenderingContext2D, _canvasWidth: number, _canvasHeight: number): void {
-            super.drawPreview(_context, _canvasWidth, _canvasHeight);
             _context.save();
 
             let radiusParticle: number;
@@ -26,6 +25,7 @@ namespace Fireworks {
                 particle.draw(_context);
             }
             _context.restore();
+            super.drawPreview(_context, _canvasWidth, _canvasHeight);
         }
 
         public copy(): ScatterRocket {

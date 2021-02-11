@@ -6,7 +6,13 @@ var Fireworks;
     let form;
     let rocketminions; // will contain all existing rockets from database
     let rockets = []; // rockets that are currently doing their thing on screen
-    function handleLoad(_event) {
+    let url = "http://localhost:5001";
+    // get previously created rockets from database
+    let database = [["bluefire", "basic", "20", "1", "doublering", "ff0000"],
+        ["halo", "heart", "10", "2", "singlering", "00fa00"],
+        ["Rocky", "star", "10", "3", "singlering", "fffc00"]
+    ];
+    async function handleLoad() {
         console.log("Fireworks starting");
         onWindowResize(); //get vieport measurements
         Fireworks.fireworkCanvas = document.querySelector("canvas[id=bgsky]");
@@ -22,12 +28,26 @@ var Fireworks;
         Fireworks.previewCanvas.width = Fireworks.viewportWidth / 100 * 20;
         Fireworks.previewCanvas.height = Fireworks.viewportWidth / 100 * 20;
         Fireworks.previewContext = Fireworks.previewCanvas.getContext("2d");
-        // get previously created rockets from database
-        let databaseLength = 3;
-        let database = [["bluefire", "basic", "20", "1", "doublering", "ff0000"],
-            ["halo", "heart", "10", "2", "singlering", "00fa00"],
-            ["Rocky", "star", "10", "3", "singlering", "fffc00"]
-        ];
+        setupRocketMinions();
+        form = document.querySelector("form");
+        form.addEventListener("change", handleChange);
+        let submit = document.querySelector("button[id=submitbutton]");
+        submit.addEventListener("click", sendRocket);
+        updatePreview();
+        window.setInterval(update, 20);
+    }
+    async function sendRocket(_event) {
+        console.log("Send rocket");
+        let formData = new FormData(form);
+        let query = new URLSearchParams(formData);
+        let response = await fetch(url + "?" + query.toString());
+        let responseText = await response.text();
+        alert(responseText);
+        handleLoad();
+        form.reset();
+        updatePreview();
+    }
+    function setupRocketMinions() {
         // clear all pre-existing rocketminions from array and html
         rocketminions = [];
         let section = document.getElementById("rockets");
@@ -39,16 +59,10 @@ var Fireworks;
             }
         }
         //create the rocket minions
-        for (let r = 0; r < databaseLength; r++) {
+        for (let r = 0; r < database.length; r++) {
             let datastring = database[r];
             createRocketMinion(datastring, r.toString());
         }
-        form = document.querySelector("form");
-        form.addEventListener("change", handleChange);
-        let submit = document.querySelector("button[id=submitbutton]");
-        submit.addEventListener("click", sendRocket);
-        updatePreview();
-        window.setInterval(update, 20);
     }
     function createRocketMinion(_rocketData, _index) {
         let section = document.getElementById("rockets");
@@ -61,8 +75,6 @@ var Fireworks;
         miniCanvas.draggable = true;
         miniCanvas.addEventListener("dragstart", handleDragStart);
         let miniContext = miniCanvas.getContext("2d");
-        console.log(_rocketData);
-        //let rocket: RocketMinion = new RocketMinion (_rocketData[0], _rocketData[1], parseInt(_rocketData[2]), _rocketData[3], parseInt(_rocketData[4]), "#" + _rocketData[5]);
         let rocket;
         let explosionCenter = new Fireworks.Vector(miniCanvas.width / 2, miniCanvas.height / 2);
         switch (_rocketData[4]) {
@@ -90,8 +102,6 @@ var Fireworks;
             return;
         let target = _event.target;
         let minionIndex = target.getAttribute("index");
-        console.log("Index of rocket is ", minionIndex);
-        //let rocket: Rocket = rocketminions[minionIndex];
         if (!minionIndex)
             return;
         _event.dataTransfer.setData("rocket", minionIndex);
@@ -105,7 +115,7 @@ var Fireworks;
         let minionIndex = _event.dataTransfer.getData("rocket");
         console.log(minionIndex);
         let rocket = rocketminions[parseInt(minionIndex)].copy();
-        // get the mouse position of the drop
+        // get the mouse position of the drop relative to the canvas
         let mousePos;
         let rect;
         if (Fireworks.fireworkCanvas) {
@@ -122,10 +132,6 @@ var Fireworks;
         rocket.position = new Fireworks.Vector(x, Fireworks.crc2.canvas.height);
         rocket.launch();
         rockets.push(rocket);
-        console.log("Rockets array after drop: ", rockets);
-        // now start exploding!!
-        //if (fireworkCanvas)
-        //    rocket.drawPreview(crc2, fireworkCanvas.width, fireworkCanvas.height);
     }
     function update() {
         console.log("update");
@@ -148,14 +154,6 @@ var Fireworks;
             i += 1;
         }
         console.log("rockets array:", rockets);
-    }
-    async function sendRocket(_event) {
-        console.log("Send rocket");
-        let formData = new FormData(form);
-        let query = new URLSearchParams(formData);
-        await fetch("fireworks.html?" + query.toString());
-        console.log("QUERY" + query);
-        alert("Rocket info sent!");
     }
     function handleChange(_event) {
         updatePreview();
