@@ -46,7 +46,6 @@ var Fireworks;
         let formData = new FormData(form);
         let query = new URLSearchParams(formData);
         let response = await fetch(url + "?" + query.toString());
-        response.headers.set("Access-Control-Allow-Origin", "*");
         let responseText = await response.text();
         alert(responseText);
         handleLoad();

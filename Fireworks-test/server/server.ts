@@ -18,7 +18,7 @@ export namespace Fireworks {
     let databaseUrl: string = "mongodb+srv://maramonaria:Flocke-1998@eia2fireworks.k4n7e.mongodb.net/RocketScience?retryWrites=true&w=majority";
 
     startServer(port);
-    connectToDatabase(databaseUrl);
+//    connectToDatabase(databaseUrl);
 
     function startServer(_port: number | string): void {
         let server: Http.Server = Http.createServer();
@@ -28,13 +28,13 @@ export namespace Fireworks {
         server.addListener("request", handleRequest);
     }
 
-    async function connectToDatabase(_url: string): Promise<void> {
-        let options: Mongo.MongoClientOptions = {useNewUrlParser: true, useUnifiedTopology: true};
-        let mongoClient: Mongo.MongoClient = new Mongo.MongoClient(_url, options);
-        await mongoClient.connect();
-        rocketsCollection = mongoClient.db("RocketScience").collection("Rockets");
-        console.log("Database connection ", rocketsCollection != undefined);
-    }
+//    async function connectToDatabase(_url: string): Promise<void> {
+//        let options: Mongo.MongoClientOptions = {useNewUrlParser: true, useUnifiedTopology: true};
+//        let mongoClient: Mongo.MongoClient = new Mongo.MongoClient(_url, options);
+//        await mongoClient.connect();
+//        rocketsCollection = mongoClient.db("RocketScience").collection("Rockets");
+//        console.log("Database connection ", rocketsCollection != undefined);
+//    }
 
     function handleRequest(_request: Http.IncomingMessage, _response: Http.ServerResponse): void {
         //console.log("What's up?");
@@ -54,7 +54,7 @@ export namespace Fireworks {
         _response.end();
     }
 
-    function storeRocket(_rocket: RocketInter) {
-        rocketsCollection.insert(_rocket);
+    function storeRocket(_rocket: RocketInter): void {
+        rocketsCollection.insertOne(_rocket);
     }
 }
