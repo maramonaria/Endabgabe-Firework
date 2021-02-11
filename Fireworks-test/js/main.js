@@ -8,9 +8,9 @@ var Fireworks;
     let rockets = []; // rockets that are currently doing their thing on screen
     let url = "https://rocketsciencecenter.herokuapp.com";
     // get previously created rockets from database
-    let database = [["bluefire", "basic", "20", "1", "doublering", "ff0000"],
-        ["halo", "heart", "10", "2", "singlering", "00fa00"],
-        ["Rocky", "star", "10", "3", "singlering", "fffc00"]
+    let database = [["bluefire", "basic", "20", "1", "doublering", "#ff0000"],
+        ["halo", "heart", "10", "2", "singlering", "#00fa00"],
+        ["Rocky", "star", "10", "3", "singlering", "#fffc00"]
     ];
     async function handleLoad() {
         console.log("Fireworks starting");
