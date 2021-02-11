@@ -48,7 +48,7 @@ export namespace Fireworks {
             _response.write(jsonString);
 
             console.log("Query: " + url.query);
-            storeRocket(url.query);
+            //storeRocket(url.query);
         }
 
         _response.end();

@@ -34,7 +34,7 @@ var Fireworks;
             let jsonString = JSON.stringify(url.query);
             _response.write(jsonString);
             console.log("Query: " + url.query);
-            storeRocket(url.query);
+            //storeRocket(url.query);
         }
         _response.end();
     }
