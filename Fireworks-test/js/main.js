@@ -30,11 +30,6 @@ var Fireworks;
         Fireworks.previewCanvas.width = Fireworks.viewportWidth / 100 * 20;
         Fireworks.previewCanvas.height = Fireworks.viewportWidth / 100 * 20;
         Fireworks.previewContext = Fireworks.previewCanvas.getContext("2d");
-        //let response: Response = await fetch("Data.json");
-        //response.headers.set("Access-Control-Allow-Origin", "*");
-        //let offer: string = await response.text();
-        //let data: Data = JSON.parse(offer);
-        //console.log(data);
         setupRocketMinions();
         form = document.querySelector("form");
         form.addEventListener("change", handleChange);
@@ -71,9 +66,10 @@ var Fireworks;
             }
         }
         //create the rocket minions
-        for (let r = 0; r < database.length; r++) {
-            let datastring = database[r];
-            createRocketMinion(datastring, r.toString());
+        for (let r = 0; r < rocketsFromDb.length; r++) {
+            let datastring = rocketsFromDb[r];
+            console.log(datastring);
+            //createRocketMinion(datastring, r.toString());
         }
     }
     function createRocketMinion(_rocketData, _index) {

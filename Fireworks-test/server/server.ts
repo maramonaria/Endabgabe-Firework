@@ -37,7 +37,6 @@ export namespace Fireworks {
         mongoClient.connect(err => {
             rocketsCollection = mongoClient.db("RocketScience").collection("Rockets");
             console.log("Database connection ", rocketsCollection != undefined);
-            retrieveAll();
         });
     }
 
