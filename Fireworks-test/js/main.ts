@@ -45,7 +45,7 @@ namespace Fireworks {
         previewCanvas.height = viewportWidth / 100 * 20;
         previewContext = <CanvasRenderingContext2D>previewCanvas.getContext("2d");
 
-        setupRocketMinions();
+
         
         form = <HTMLFormElement>document.querySelector("form");
         form.addEventListener("change", handleChange);
@@ -74,6 +74,7 @@ namespace Fireworks {
         let response: Response = await fetch(url + "?" + "command=retrieve"); 
         rocketsFromDb = await response.json();
         console.log("RocketsfromDb: ", rocketsFromDb);
+        setupRocketMinions();
     }
 
     function setupRocketMinions(): void {
@@ -86,7 +87,7 @@ namespace Fireworks {
                     section.lastChild.remove();
                 }       
             }
-                        //create the rocket minions (ergo: the draggable rocket mini canvases)
+            //create the rocket minions (ergo: the draggable rocket mini canvases)
             let index: number = 0;
             for (let rocketObject of rocketsFromDb) {
                 console.log(rocketObject);

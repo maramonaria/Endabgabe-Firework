@@ -30,7 +30,6 @@ var Fireworks;
         Fireworks.previewCanvas.width = Fireworks.viewportWidth / 100 * 20;
         Fireworks.previewCanvas.height = Fireworks.viewportWidth / 100 * 20;
         Fireworks.previewContext = Fireworks.previewCanvas.getContext("2d");
-        setupRocketMinions();
         form = document.querySelector("form");
         form.addEventListener("change", handleChange);
         let submit = document.querySelector("button[id=submitbutton]");
@@ -53,6 +52,7 @@ var Fireworks;
         let response = await fetch(url + "?" + "command=retrieve");
         rocketsFromDb = await response.json();
         console.log("RocketsfromDb: ", rocketsFromDb);
+        setupRocketMinions();
     }
     function setupRocketMinions() {
         // clear all pre-existing rocketminions from array and html
