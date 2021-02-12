@@ -181,7 +181,6 @@ namespace Fireworks {
 
     function update(): void {
 
-        console.log("update");
         crc2.save();
         crc2.fillStyle = "HSLA(231, 54%, 3%, 0.4)";
         crc2.fillRect(0, 0, crc2.canvas.width, crc2.canvas.height);
@@ -201,7 +200,6 @@ namespace Fireworks {
             }
             i += 1;
         }
-        console.log("rockets array:", rockets);
     }
 
     function handleChange(_event: Event): void {

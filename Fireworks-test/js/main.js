@@ -139,7 +139,6 @@ var Fireworks;
         rockets.push(rocket);
     }
     function update() {
-        console.log("update");
         Fireworks.crc2.save();
         Fireworks.crc2.fillStyle = "HSLA(231, 54%, 3%, 0.4)";
         Fireworks.crc2.fillRect(0, 0, Fireworks.crc2.canvas.width, Fireworks.crc2.canvas.height);
@@ -158,7 +157,6 @@ var Fireworks;
             }
             i += 1;
         }
-        console.log("rockets array:", rockets);
     }
     function handleChange(_event) {
         updatePreview();
