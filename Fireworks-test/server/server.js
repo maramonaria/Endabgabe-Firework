@@ -19,28 +19,23 @@ var Fireworks;
         server.addListener("request", handleRequest);
     }
     async function connectToDatabase(_url) {
-        console.log("1");
         let options = { useNewUrlParser: true, useUnifiedTopology: true };
-        console.log("2");
         let mongoClient = new Mongo.MongoClient(_url, options);
-        console.log("3");
-        await mongoClient.connect();
-        console.log("4");
-        rocketsCollection = mongoClient.db("RocketScience").collection("Rockets");
-        console.log("5");
-        console.log("Database connection ", rocketsCollection != undefined);
+        mongoClient.connect(err => {
+            rocketsCollection = mongoClient.db("RocketScience").collection("Rockets");
+            console.log("Database connection ", rocketsCollection != undefined);
+        });
     }
     function handleRequest(_request, _response) {
-        //console.log("What's up?");
+        console.log("What's up?");
         _response.setHeader("content-type", "text/html; charset=utf-8");
         _response.setHeader("Access-Control-Allow-Origin", "*");
-        console.log("ERROR noooow");
         if (_request.url) {
             let url = Url.parse(_request.url, true);
             let jsonString = JSON.stringify(url.query);
             _response.write(jsonString);
             console.log("Query: ", url.query);
-            //storeRocket(url.query);
+            storeRocket(url.query);
         }
         _response.end();
     }

@@ -17,7 +17,9 @@ export namespace Fireworks {
 
     let databaseUrl: string = "mongodb+srv://maramonaria:Flocke-1998@eia2fireworks.k4n7e.mongodb.net/RocketScience?retryWrites=true&w=majority";
 
+
     startServer(port);
+
     connectToDatabase(databaseUrl);
 
     function startServer(_port: number | string): void {
@@ -29,24 +31,19 @@ export namespace Fireworks {
     }
 
     async function connectToDatabase(_url: string): Promise<void> {
-        console.log("1");
         let options: Mongo.MongoClientOptions = {useNewUrlParser: true, useUnifiedTopology: true};
-        console.log("2");
         let mongoClient: Mongo.MongoClient = new Mongo.MongoClient(_url, options);
-        console.log("3");
-        await mongoClient.connect();
-        console.log("4");
-        rocketsCollection = mongoClient.db("RocketScience").collection("Rockets");
-        console.log("5");
-        console.log("Database connection ", rocketsCollection != undefined);
+        
+        mongoClient.connect(err => {
+            rocketsCollection = mongoClient.db("RocketScience").collection("Rockets");
+            console.log("Database connection ", rocketsCollection != undefined);
+        });
     }
 
     function handleRequest(_request: Http.IncomingMessage, _response: Http.ServerResponse): void {
-        //console.log("What's up?");
+        console.log("What's up?");
         _response.setHeader("content-type", "text/html; charset=utf-8");
         _response.setHeader("Access-Control-Allow-Origin", "*");
-
-        console.log("ERROR noooow");
 
         if (_request.url) {
             let url: Url.UrlWithParsedQuery = Url.parse(_request.url, true);
@@ -55,7 +52,7 @@ export namespace Fireworks {
             _response.write(jsonString);
 
             console.log("Query: ", url.query);
-            //storeRocket(url.query);
+            storeRocket(url.query);
         }
 
         _response.end();
