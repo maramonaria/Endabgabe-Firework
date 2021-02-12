@@ -69,7 +69,7 @@ var Fireworks;
         for (let r = 0; r < rocketsFromDb.length; r++) {
             let datastring = rocketsFromDb[r];
             console.log(datastring);
-            //createRocketMinion(datastring, r.toString());
+            createRocketMinion(datastring, r.toString());
         }
     }
     function createRocketMinion(_rocketData, _index) {
@@ -85,7 +85,9 @@ var Fireworks;
         let miniContext = miniCanvas.getContext("2d");
         let rocket;
         let explosionCenter = new Fireworks.Vector(miniCanvas.width / 2, miniCanvas.height / 2);
-        switch (_rocketData[4]) {
+        let parsedData = JSON.parse(_rocketData);
+        console.log("parsed: ", parsedData);
+        switch (_rocketData) {
             case "scatter":
                 rocket = new Fireworks.ScatterRocket(_rocketData[0], _rocketData[1], parseInt(_rocketData[2]), parseInt(_rocketData[3]), _rocketData[5], explosionCenter);
                 rocketminions.push(rocket);

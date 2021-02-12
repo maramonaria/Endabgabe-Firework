@@ -92,11 +92,11 @@ namespace Fireworks {
         for (let r: number = 0; r < rocketsFromDb.length; r++) {
             let datastring: string = rocketsFromDb[r];
             console.log(datastring);
-            //createRocketMinion(datastring, r.toString());
+            createRocketMinion(datastring, r.toString());
         }
     }
 
-    function createRocketMinion(_rocketData: string[], _index: string): void {
+    function createRocketMinion(_rocketData: string, _index: string): void {
         let section: HTMLElement | null = document.getElementById("rockets");
         
         let miniCanvas: HTMLCanvasElement = <HTMLCanvasElement>document.createElement("canvas");
@@ -113,7 +113,9 @@ namespace Fireworks {
         
         let rocket: Rocket;
         let explosionCenter: Vector = new Vector(miniCanvas.width / 2, miniCanvas.height / 2);
-        switch (_rocketData[4]) {
+        let parsedData = JSON.parse(_rocketData);
+        console.log("parsed: ", parsedData);
+        switch (_rocketData) {
             case "scatter":
                 rocket = new ScatterRocket(_rocketData[0], _rocketData[1], parseInt(_rocketData[2]), parseInt(_rocketData[3]), _rocketData[5], explosionCenter);
                 rocketminions.push(rocket);
