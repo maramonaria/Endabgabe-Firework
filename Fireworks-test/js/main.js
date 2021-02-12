@@ -55,7 +55,7 @@ var Fireworks;
         updatePreview();
     }
     async function getSavedRocketsFromDb() {
-        let response = await fetch(url + "?" + "command=retrieve"); //Abfrage über url ob Daten gespeichert, geholt oder gelöscht werden sollen --> hier: holen über command "retrieve"
+        let response = await fetch(url + "?" + "command=retrieve");
         rocketsFromDb = await response.json();
         console.log("RocketsfromDb: ", rocketsFromDb);
     }
