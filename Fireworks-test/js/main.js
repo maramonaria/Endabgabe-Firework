@@ -6,7 +6,7 @@ var Fireworks;
     let form;
     let rocketminions; // will contain all existing rockets from database
     let rockets = []; // rockets that are currently doing their thing on screen
-    let rocketsFromDb;
+    let rocketsFromDb = [];
     let url = "https://rocketsciencecenter.herokuapp.com";
     // get previously created rockets from database
     let database = [["bluefire", "basic", "20", "1", "doublering", "#ff0000"],

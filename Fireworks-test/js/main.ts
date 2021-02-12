@@ -13,7 +13,7 @@ namespace Fireworks {
     let form: HTMLFormElement;
     let rocketminions: Rocket[]; // will contain all existing rockets from database
     let rockets: Rocket[] = []; // rockets that are currently doing their thing on screen
-    let rocketsFromDb: string[];
+    let rocketsFromDb: string[] = [];
 
     let url: string = "https://rocketsciencecenter.herokuapp.com";
 
