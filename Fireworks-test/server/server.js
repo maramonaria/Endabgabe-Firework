@@ -12,6 +12,7 @@ var Fireworks;
     let databaseUrl = "mongodb+srv://maramonaria:Flocke-1998@eia2fireworks.k4n7e.mongodb.net/RocketScience?retryWrites=true&w=majority";
     startServer(port);
     connectToDatabase(databaseUrl);
+    retrieveAll();
     function startServer(_port) {
         let server = Http.createServer();
         console.log("Server starting on port:" + _port);
@@ -41,6 +42,11 @@ var Fireworks;
     }
     function storeRocket(_rocket) {
         rocketsCollection.insertOne(_rocket);
+    }
+    async function retrieveAll() {
+        let results = rocketsCollection.find();
+        Fireworks.rocketCreations = await results.toArray();
+        console.log("creations from db", Fireworks.rocketCreations);
     }
 })(Fireworks = exports.Fireworks || (exports.Fireworks = {}));
 //# sourceMappingURL=server.js.map

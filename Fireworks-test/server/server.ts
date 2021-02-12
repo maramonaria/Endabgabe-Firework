@@ -3,11 +3,12 @@ import * as Url from "url";
 import * as Mongo from "mongodb";
 
 
-
 export namespace Fireworks {
     interface RocketInter {
         [type: string]: undefined | string | string[];
     }
+
+    export let rocketCreations: string[];
 
     let rocketsCollection: Mongo.Collection;
 
@@ -19,8 +20,8 @@ export namespace Fireworks {
 
 
     startServer(port);
-
     connectToDatabase(databaseUrl);
+    retrieveAll();
 
     function startServer(_port: number | string): void {
         let server: Http.Server = Http.createServer();
@@ -33,7 +34,7 @@ export namespace Fireworks {
     async function connectToDatabase(_url: string): Promise<void> {
         let options: Mongo.MongoClientOptions = {useNewUrlParser: true, useUnifiedTopology: true};
         let mongoClient: Mongo.MongoClient = new Mongo.MongoClient(_url, options);
-        
+
         mongoClient.connect(err => {
             rocketsCollection = mongoClient.db("RocketScience").collection("Rockets");
             console.log("Database connection ", rocketsCollection != undefined);
@@ -61,4 +62,11 @@ export namespace Fireworks {
     function storeRocket(_rocket: RocketInter): void {
         rocketsCollection.insertOne(_rocket);
     }
+
+    async function retrieveAll(): Promise<void> {
+        let results: Mongo.Cursor = rocketsCollection.find();
+        rocketCreations = await results.toArray();
+        console.log("creations from db", rocketCreations);
+    }
+    
 }
