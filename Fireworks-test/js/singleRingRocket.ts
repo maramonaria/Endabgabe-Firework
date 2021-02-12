@@ -7,7 +7,6 @@ namespace Fireworks {
 
         launch(): void {
             super.launch();
-            console.log("launch: ", this.particles[1]);
         }
 
 

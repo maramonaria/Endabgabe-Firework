@@ -7,7 +7,6 @@ var Fireworks;
         }
         launch() {
             super.launch();
-            console.log("launch: ", this.particles[1]);
         }
         move(_timeslice) {
             // if startingParticle is ready to explode: initiate all exploded Particles

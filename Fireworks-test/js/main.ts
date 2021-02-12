@@ -17,12 +17,6 @@ namespace Fireworks {
 
     let url: string = "https://rocketsciencecenter.herokuapp.com";
 
-    // get previously created rockets from database
-    let database: string[][] = [["bluefire", "basic", "20", "1", "doublering", "#ff0000"], 
-                                ["halo", "heart", "10", "2", "singlering", "#00fa00"],
-                                ["Rocky", "star", "10", "3", "singlering", "#fffc00"]
-                                ];
-
     async function handleLoad(): Promise<void> {
         console.log("Fireworks starting");
         getSavedRocketsFromDb();
@@ -94,8 +88,8 @@ namespace Fireworks {
                 let miniCanvas: HTMLCanvasElement = <HTMLCanvasElement>document.createElement("canvas");
                 miniCanvas.setAttribute("id", "rocketminion");
                 miniCanvas.setAttribute("index", index.toString());
-                miniCanvas.width = viewportWidth / 100 * 7;
-                miniCanvas.height = viewportWidth / 100 * 7;
+                miniCanvas.width = viewportWidth / 100 * 8;
+                miniCanvas.height = viewportWidth / 100 * 8;
 
                 // Drag and Drop functionality
                 miniCanvas.draggable = true;
@@ -128,47 +122,6 @@ namespace Fireworks {
                 index += 1;
             }   
         }
-    }
-
-    function createRocketMinion(_rocketData: string, _index: string): void {
-        let section: HTMLElement | null = document.getElementById("rockets");
-        
-        let miniCanvas: HTMLCanvasElement = <HTMLCanvasElement>document.createElement("canvas");
-        miniCanvas.setAttribute("id", "rocketminion");
-        miniCanvas.setAttribute("index", _index);
-        miniCanvas.width = viewportWidth / 100 * 7;
-        miniCanvas.height = viewportWidth / 100 * 7;
-
-        // Drag and Drop functionality
-        miniCanvas.draggable = true;
-        miniCanvas.addEventListener("dragstart", handleDragStart);
-
-        let miniContext: CanvasRenderingContext2D = <CanvasRenderingContext2D>miniCanvas.getContext("2d");
-        
-        let rocket: Rocket;
-        let explosionCenter: Vector = new Vector(miniCanvas.width / 2, miniCanvas.height / 2);
-        let parsedData = JSON.parse(_rocketData);
-        console.log("parsed: ", parsedData);
-        switch (_rocketData) {
-            case "scatter":
-                rocket = new ScatterRocket(_rocketData[0], _rocketData[1], parseInt(_rocketData[2]), parseInt(_rocketData[3]), _rocketData[5], explosionCenter);
-                rocketminions.push(rocket);
-                rocket.drawPreview(miniContext, miniCanvas.width, miniCanvas.height);
-                break;
-            case "singlering":
-                rocket = new SingleRingRocket(_rocketData[0], _rocketData[1], parseInt(_rocketData[2]), parseInt(_rocketData[3]), _rocketData[5], explosionCenter);
-                rocketminions.push(rocket);
-                rocket.drawPreview(miniContext, miniCanvas.width, miniCanvas.height);
-                break;
-            case "doublering":
-                rocket = new DoubleRingRocket(_rocketData[0], _rocketData[1], parseInt(_rocketData[2]), parseInt(_rocketData[3]), _rocketData[5], explosionCenter);
-                rocketminions.push(rocket);
-                rocket.drawPreview(miniContext, miniCanvas.width, miniCanvas.height);
-                break;
-        }       
-
-        if (section)
-            section.appendChild(miniCanvas);
     }
 
     function handleDragStart(_event: DragEvent): void {
