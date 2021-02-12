@@ -21,7 +21,6 @@ export namespace Fireworks {
 
     startServer(port);
     connectToDatabase(databaseUrl);
-    retrieveAll();
 
     function startServer(_port: number | string): void {
         let server: Http.Server = Http.createServer();
@@ -38,6 +37,7 @@ export namespace Fireworks {
         mongoClient.connect(err => {
             rocketsCollection = mongoClient.db("RocketScience").collection("Rockets");
             console.log("Database connection ", rocketsCollection != undefined);
+            retrieveAll();
         });
     }
 
@@ -63,10 +63,12 @@ export namespace Fireworks {
         rocketsCollection.insertOne(_rocket);
     }
 
-    async function retrieveAll(): Promise<void> {
+    async function retrieveAll(_request: Http.IncomingMessage, _response: Http.ServerResponse): Promise<void> {
         let results: Mongo.Cursor = rocketsCollection.find();
         rocketCreations = await results.toArray();
-        console.log("creations from db", rocketCreations);
+        _response.write(JSON.stringify(rocketCreations));                                              //Client ausgeben, welche Raketen gespeichert wurden
+
+        _response.end();
     }
     
 }

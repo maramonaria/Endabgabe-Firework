@@ -12,7 +12,6 @@ var Fireworks;
     let databaseUrl = "mongodb+srv://maramonaria:Flocke-1998@eia2fireworks.k4n7e.mongodb.net/RocketScience?retryWrites=true&w=majority";
     startServer(port);
     connectToDatabase(databaseUrl);
-    retrieveAll();
     function startServer(_port) {
         let server = Http.createServer();
         console.log("Server starting on port:" + _port);
@@ -25,6 +24,7 @@ var Fireworks;
         mongoClient.connect(err => {
             rocketsCollection = mongoClient.db("RocketScience").collection("Rockets");
             console.log("Database connection ", rocketsCollection != undefined);
+            retrieveAll();
         });
     }
     function handleRequest(_request, _response) {
@@ -43,10 +43,11 @@ var Fireworks;
     function storeRocket(_rocket) {
         rocketsCollection.insertOne(_rocket);
     }
-    async function retrieveAll() {
+    async function retrieveAll(_request, _response) {
         let results = rocketsCollection.find();
         Fireworks.rocketCreations = await results.toArray();
-        console.log("creations from db", Fireworks.rocketCreations);
+        _response.write(JSON.stringify(Fireworks.rocketCreations)); //Client ausgeben, welche Raketen gespeichert wurden
+        _response.end();
     }
 })(Fireworks = exports.Fireworks || (exports.Fireworks = {}));
 //# sourceMappingURL=server.js.map

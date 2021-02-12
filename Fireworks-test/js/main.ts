@@ -13,6 +13,7 @@ namespace Fireworks {
     let form: HTMLFormElement;
     let rocketminions: Rocket[]; // will contain all existing rockets from database
     let rockets: Rocket[] = []; // rockets that are currently doing their thing on screen
+    let rocketsFromDb: string[];
 
     let url: string = "https://rocketsciencecenter.herokuapp.com";
 
@@ -24,6 +25,7 @@ namespace Fireworks {
 
     async function handleLoad(): Promise<void> {
         console.log("Fireworks starting");
+        getSavedRocketsFromDb();
 
         onWindowResize(); //get vieport measurements
 
@@ -73,6 +75,12 @@ namespace Fireworks {
         handleLoad();
         form.reset();
         updatePreview();
+    }
+
+    async function getSavedRocketsFromDb(): Promise<void> {
+        let response: Response = await fetch(url + "?" + "command=retrieve");                    //Abfrage über url ob Daten gespeichert, geholt oder gelöscht werden sollen --> hier: holen über command "retrieve"
+        rocketsFromDb = await response.json();
+        console.log("RocketsfromDb: ", rocketsFromDb);
     }
 
     function setupRocketMinions(): void {

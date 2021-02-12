@@ -6,6 +6,7 @@ var Fireworks;
     let form;
     let rocketminions; // will contain all existing rockets from database
     let rockets = []; // rockets that are currently doing their thing on screen
+    let rocketsFromDb;
     let url = "https://rocketsciencecenter.herokuapp.com";
     // get previously created rockets from database
     let database = [["bluefire", "basic", "20", "1", "doublering", "#ff0000"],
@@ -14,6 +15,7 @@ var Fireworks;
     ];
     async function handleLoad() {
         console.log("Fireworks starting");
+        getSavedRocketsFromDb();
         onWindowResize(); //get vieport measurements
         Fireworks.fireworkCanvas = document.querySelector("canvas[id=bgsky]");
         if (!Fireworks.fireworkCanvas)
@@ -51,6 +53,11 @@ var Fireworks;
         handleLoad();
         form.reset();
         updatePreview();
+    }
+    async function getSavedRocketsFromDb() {
+        let response = await fetch(url + "?" + "command=retrieve"); //Abfrage über url ob Daten gespeichert, geholt oder gelöscht werden sollen --> hier: holen über command "retrieve"
+        rocketsFromDb = await response.json();
+        console.log("RocketsfromDb: ", rocketsFromDb);
     }
     function setupRocketMinions() {
         // clear all pre-existing rocketminions from array and html
