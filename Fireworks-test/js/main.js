@@ -6,7 +6,7 @@ var Fireworks;
     let form;
     let rocketminions; // will contain all existing rockets from database
     let rockets = []; // rockets that are currently doing their thing on screen
-    let rocketsFromDb = [];
+    let rocketsFromDb;
     let url = "https://rocketsciencecenter.herokuapp.com";
     // get previously created rockets from database
     let database = [["bluefire", "basic", "20", "1", "doublering", "#ff0000"],
@@ -64,12 +64,41 @@ var Fireworks;
                     section.lastChild.remove();
                 }
             }
-        }
-        //create the rocket minions
-        for (let r = 0; r < rocketsFromDb.length; r++) {
-            let datastring = rocketsFromDb[r];
-            console.log(datastring);
-            createRocketMinion(datastring, r.toString());
+            //create the rocket minions (ergo: the draggable rocket mini canvases)
+            let index = 0;
+            for (let rocketObject of rocketsFromDb) {
+                console.log(rocketObject);
+                let miniCanvas = document.createElement("canvas");
+                miniCanvas.setAttribute("id", "rocketminion");
+                miniCanvas.setAttribute("index", index.toString());
+                miniCanvas.width = Fireworks.viewportWidth / 100 * 7;
+                miniCanvas.height = Fireworks.viewportWidth / 100 * 7;
+                // Drag and Drop functionality
+                miniCanvas.draggable = true;
+                miniCanvas.addEventListener("dragstart", handleDragStart);
+                let miniContext = miniCanvas.getContext("2d");
+                let rocket;
+                let explosionCenter = new Fireworks.Vector(miniCanvas.width / 2, miniCanvas.height / 2);
+                switch (rocketObject["ExplosionShape"]) {
+                    case "scatter":
+                        rocket = new Fireworks.ScatterRocket(rocketObject["Name"], rocketObject["ParticleShape"], parseInt(rocketObject["ParticleCount"]), parseInt(rocketObject["DimensionSlider"]), rocketObject["Color"], explosionCenter);
+                        rocketminions.push(rocket);
+                        rocket.drawPreview(miniContext, miniCanvas.width, miniCanvas.height);
+                        break;
+                    case "singlering":
+                        rocket = new Fireworks.SingleRingRocket(rocketObject["Name"], rocketObject["ParticleShape"], parseInt(rocketObject["ParticleCount"]), parseInt(rocketObject["DimensionSlider"]), rocketObject["Color"], explosionCenter);
+                        rocketminions.push(rocket);
+                        rocket.drawPreview(miniContext, miniCanvas.width, miniCanvas.height);
+                        break;
+                    case "doublering":
+                        rocket = new Fireworks.DoubleRingRocket(rocketObject["Name"], rocketObject["ParticleShape"], parseInt(rocketObject["ParticleCount"]), parseInt(rocketObject["DimensionSlider"]), rocketObject["Color"], explosionCenter);
+                        rocketminions.push(rocket);
+                        rocket.drawPreview(miniContext, miniCanvas.width, miniCanvas.height);
+                        break;
+                }
+                section.appendChild(miniCanvas);
+                index += 1;
+            }
         }
     }
     function createRocketMinion(_rocketData, _index) {
