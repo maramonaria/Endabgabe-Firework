@@ -33,12 +33,19 @@ var Fireworks;
         _response.setHeader("Access-Control-Allow-Origin", "*");
         if (_request.url) {
             let url = Url.parse(_request.url, true);
-            let jsonString = JSON.stringify(url.query);
-            _response.write(jsonString);
-            console.log("Query: ", url.query);
-            storeRocket(url.query);
+            let command = url.query["command"];
+            switch (command) {
+                case "retrieve":
+                    retrieveAll(_request, _response);
+                    break;
+                default:
+                    let jsonString = JSON.stringify(url.query);
+                    _response.write(jsonString);
+                    console.log("Query: ", url.query);
+                    storeRocket(url.query);
+                    _response.end();
+            }
         }
-        _response.end();
     }
     function storeRocket(_rocket) {
         rocketsCollection.insertOne(_rocket);
@@ -46,7 +53,7 @@ var Fireworks;
     async function retrieveAll(_request, _response) {
         let results = rocketsCollection.find();
         Fireworks.rocketCreations = await results.toArray();
-        _response.write(JSON.stringify(Fireworks.rocketCreations)); //Client ausgeben, welche Raketen gespeichert wurden
+        _response.write(JSON.stringify(Fireworks.rocketCreations));
         _response.end();
     }
 })(Fireworks = exports.Fireworks || (exports.Fireworks = {}));

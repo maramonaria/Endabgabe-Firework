@@ -48,15 +48,22 @@ export namespace Fireworks {
 
         if (_request.url) {
             let url: Url.UrlWithParsedQuery = Url.parse(_request.url, true);
+            let command: undefined | string | string[] = url.query["command"];
 
-            let jsonString: string = JSON.stringify(url.query);
-            _response.write(jsonString);
+            switch (command) {
+                case "retrieve":
+                    retrieveAll(_request, _response);
+                    break;
+                default:
+                    let jsonString: string = JSON.stringify(url.query);
+                    _response.write(jsonString);
 
-            console.log("Query: ", url.query);
-            storeRocket(url.query);
-        }
+                    console.log("Query: ", url.query);
+                    storeRocket(url.query);
+                    _response.end();
 
-        _response.end();
+            }
+        }  
     }
 
     function storeRocket(_rocket: RocketInter): void {
@@ -66,9 +73,8 @@ export namespace Fireworks {
     async function retrieveAll(_request: Http.IncomingMessage, _response: Http.ServerResponse): Promise<void> {
         let results: Mongo.Cursor = rocketsCollection.find();
         rocketCreations = await results.toArray();
-        _response.write(JSON.stringify(rocketCreations));                                              //Client ausgeben, welche Raketen gespeichert wurden
+        _response.write(JSON.stringify(rocketCreations));
 
         _response.end();
-    }
-    
+    }    
 }
