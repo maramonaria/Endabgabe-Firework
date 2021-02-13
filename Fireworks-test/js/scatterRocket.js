@@ -17,7 +17,7 @@ var Fireworks;
                     //let scatterPosition: Vector = Vector.getRandom(5, 50); 
                     newVelocity = Fireworks.Vector.getRandom(5, 50);
                     let particle = new Fireworks.Particle(this.explosionCenter, this.particleShape, Fireworks.viewportWidth / 200, this.color, newVelocity);
-                    particle.lifetime = this.dimension * 30 + Math.random() * 50;
+                    particle.lifetime = this.dimension * 50 + Math.random() * 100;
                     particle.explode();
                     this.particles.push(particle);
                 }

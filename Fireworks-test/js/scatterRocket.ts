@@ -19,7 +19,7 @@ namespace Fireworks {
 
                     newVelocity = Vector.getRandom(5, 50);
                     let particle: Particle = new Particle(this.explosionCenter, this.particleShape, viewportWidth / 200, this.color, newVelocity);
-                    particle.lifetime = this.dimension * 30 + Math.random() * 50;
+                    particle.lifetime = this.dimension * 50 + Math.random() * 100;
                     particle.explode();
                     this.particles.push(particle);
                 }
