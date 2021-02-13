@@ -71,6 +71,7 @@ var Fireworks;
                     rocketsCollection.deleteOne({ "_id": objectId });
             }
         }
+        _response.end();
     }
 })(Fireworks = exports.Fireworks || (exports.Fireworks = {}));
 //# sourceMappingURL=server.js.map

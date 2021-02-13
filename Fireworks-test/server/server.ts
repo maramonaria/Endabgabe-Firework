@@ -91,7 +91,9 @@ export namespace Fireworks {
                 console.log("delete Object with Id: ", objectId);
                 if (rocketId != undefined)
                     rocketsCollection.deleteOne({ "_id": objectId });
+                
             }
         }
+        _response.end();
     }
 }
