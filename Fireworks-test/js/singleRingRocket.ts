@@ -24,7 +24,7 @@ namespace Fireworks {
 
                     newVelocity = Vector.getDifference(this.explosionCenter, ringPosition);
                     let particle: Particle = new Particle(this.explosionCenter, this.particleShape, viewportWidth / 200, this.color, newVelocity);
-                    particle.lifetime = this.dimension * 100 + Math.random() * 20;
+                    particle.lifetime = this.dimension * 50 + Math.random() * 20;
                     particle.explode();
                     this.particles.push(particle);
                 }
