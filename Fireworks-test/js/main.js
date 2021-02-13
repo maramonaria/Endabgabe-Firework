@@ -134,7 +134,7 @@ var Fireworks;
     }
     function update() {
         Fireworks.crc2.save();
-        Fireworks.crc2.fillStyle = "HSLA(231, 54%, 3%, 0.4)";
+        Fireworks.crc2.fillStyle = "HSLA(231, 54%, 3%, 0.1)";
         Fireworks.crc2.fillRect(0, 0, Fireworks.crc2.canvas.width, Fireworks.crc2.canvas.height);
         Fireworks.crc2.restore();
         let i = 0;

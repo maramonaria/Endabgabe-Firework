@@ -173,7 +173,7 @@ namespace Fireworks {
     function update(): void {
 
         crc2.save();
-        crc2.fillStyle = "HSLA(231, 54%, 3%, 0.4)";
+        crc2.fillStyle = "HSLA(231, 54%, 3%, 0.1)";
         crc2.fillRect(0, 0, crc2.canvas.width, crc2.canvas.height);
         crc2.restore();
 
