@@ -20,7 +20,7 @@ namespace Fireworks {
             this.color = _color;
             this.explosionCenter = _explosionCenter.copy();
             this.position = new Vector(this.explosionCenter.x, crc2.canvas.height);
-            this.velocity = new Vector(0, - 300); // set how fast the rocket flies up to its explosion center
+            this.velocity = new Vector(0, - 100); // set how fast the rocket flies up to its explosion center
         }
 
         public explode(): void {

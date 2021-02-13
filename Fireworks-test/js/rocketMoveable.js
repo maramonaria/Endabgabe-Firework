@@ -13,7 +13,7 @@ var Fireworks;
             this.color = _color;
             this.explosionCenter = _explosionCenter.copy();
             this.position = new Fireworks.Vector(this.explosionCenter.x, Fireworks.crc2.canvas.height);
-            this.velocity = new Fireworks.Vector(0, -300); // set how fast the rocket flies up to its explosion center
+            this.velocity = new Fireworks.Vector(0, -100); // set how fast the rocket flies up to its explosion center
         }
         explode() {
             this.exploded = true;

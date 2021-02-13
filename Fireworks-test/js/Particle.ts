@@ -97,7 +97,7 @@ namespace Fireworks {
                 }
             }
             else {
-                gradient.addColorStop(1, "#03040a");
+                gradient.addColorStop(1, "HSLA(0,0%,100%,0)");
                 _context.save();
                 particle.arc(0, 0, this.size, 0, 2 * Math.PI);
                 _context.fill(particle);
