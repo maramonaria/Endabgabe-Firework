@@ -66,6 +66,7 @@ var Fireworks;
             if (url.query["id"] != undefined) {
                 let rocketId = "" + url.query["id"];
                 let objectId = new Mongo.ObjectId(rocketId.toString());
+                console.log("delete Object with Id: ", objectId);
                 if (rocketId != undefined)
                     rocketsCollection.deleteOne({ "_id": objectId });
             }
