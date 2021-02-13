@@ -79,7 +79,7 @@ namespace Fireworks {
 
                         break;
                     case "star":
-                        let particleSize: number = this.size * 2;
+                        let particleSize: number = this.size * 1.5;
                         _context.save();
                         _context.beginPath();
                         _context.moveTo(0, particleSize);

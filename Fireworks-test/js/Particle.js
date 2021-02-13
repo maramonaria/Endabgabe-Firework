@@ -61,7 +61,7 @@ var Fireworks;
                         _context.restore();
                         break;
                     case "star":
-                        let particleSize = this.size * 2;
+                        let particleSize = this.size * 1.5;
                         _context.save();
                         _context.beginPath();
                         _context.moveTo(0, particleSize);
