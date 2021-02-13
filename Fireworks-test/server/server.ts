@@ -55,6 +55,7 @@ export namespace Fireworks {
                     break;
                 case "delete":
                     deleteRocket(_request, _response, url);
+                    break;
                 default:
                     let jsonString: string = JSON.stringify(url.query);
                     _response.write(jsonString);

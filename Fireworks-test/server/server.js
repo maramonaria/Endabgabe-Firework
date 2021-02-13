@@ -39,6 +39,7 @@ var Fireworks;
                     break;
                 case "delete":
                     deleteRocket(_request, _response, url);
+                    break;
                 default:
                     let jsonString = JSON.stringify(url.query);
                     _response.write(jsonString);
