@@ -133,9 +133,7 @@ namespace Fireworks {
     async function deleteThisRocket (_event: Event): Promise<void> {
         let target: HTMLButtonElement = <HTMLButtonElement>_event.target;
         
-        let response: Response = await fetch(url + "?" + "command=delete&id=" + target.id); 
-        let text: string = await response.text();
-        alert(text);
+        await fetch(url + "?" + "command=delete&id=" + target.id); 
         handleLoad();
     }
 

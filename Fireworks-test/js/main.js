@@ -103,9 +103,7 @@ var Fireworks;
     }
     async function deleteThisRocket(_event) {
         let target = _event.target;
-        let response = await fetch(url + "?" + "command=delete&id=" + target.id);
-        let text = await response.text();
-        alert(text);
+        await fetch(url + "?" + "command=delete&id=" + target.id);
         handleLoad();
     }
     function handleDragStart(_event) {
