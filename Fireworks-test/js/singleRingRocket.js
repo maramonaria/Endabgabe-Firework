@@ -37,7 +37,7 @@ var Fireworks;
                 radiusParticle = _canvasWidth / 30;
             }
             let position;
-            let explosionRadius = _canvasWidth / 7 * this.dimension;
+            let explosionRadius = _canvasWidth / 10 * this.dimension;
             for (let i = 0; i < this.particleCount; i++) {
                 let a = 2 * Math.PI * i / this.particleCount;
                 position = new Fireworks.Vector(this.explosionCenter.x + explosionRadius * Math.sin(a), this.explosionCenter.y + explosionRadius * Math.cos(a));

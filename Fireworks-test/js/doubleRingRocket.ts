@@ -52,8 +52,8 @@ namespace Fireworks {
             }
             let position: Vector;
 
-            let outerRadius: number = _canvasWidth / 3;
-            let innerRadius: number = _canvasWidth / 5;
+            let outerRadius: number = _canvasWidth / 10 * this.dimension;
+            let innerRadius: number = _canvasWidth / 15 * this.dimension;
 
             for (let i: number = 0; i < 2 * this.particleCount; i++) {
                 _context.save();

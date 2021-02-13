@@ -42,8 +42,8 @@ var Fireworks;
                 radiusParticle = _canvasWidth / 30;
             }
             let position;
-            let outerRadius = _canvasWidth / 3;
-            let innerRadius = _canvasWidth / 5;
+            let outerRadius = _canvasWidth / 10 * this.dimension;
+            let innerRadius = _canvasWidth / 15 * this.dimension;
             for (let i = 0; i < 2 * this.particleCount; i++) {
                 _context.save();
                 let explosionRadius = (i % 2 == 0) ? outerRadius : innerRadius;
