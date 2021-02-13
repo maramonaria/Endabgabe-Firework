@@ -93,6 +93,7 @@ var Fireworks;
                 }
                 //delete button
                 let deleteButton = document.createElement("button");
+                deleteButton.innerHTML = "X";
                 deleteButton.setAttribute("id", rocketObject["_id"]);
                 deleteButton.addEventListener("click", deleteThisRocket);
                 section.appendChild(miniCanvas);

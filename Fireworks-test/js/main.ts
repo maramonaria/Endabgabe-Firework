@@ -120,6 +120,7 @@ namespace Fireworks {
                 
                 //delete button
                 let deleteButton: HTMLButtonElement = <HTMLButtonElement>document.createElement("button");
+                deleteButton.innerHTML = "X";
                 deleteButton.setAttribute("id", rocketObject["_id"]);
                 deleteButton.addEventListener("click", deleteThisRocket);
         
