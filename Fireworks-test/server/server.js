@@ -38,6 +38,7 @@ var Fireworks;
                     retrieveAll(_request, _response);
                     break;
                 case "delete":
+                    console.log("url: ", url);
                     deleteRocket(_request, _response);
                     break;
                 default:
