@@ -32,7 +32,7 @@ var Fireworks;
             let position;
             for (let i = 0; i < this.particleCount; i++) {
                 position = this.explosionCenter.copy();
-                position.add(Fireworks.Vector.getRandom(1, this.dimension * (_canvasWidth / 4)));
+                position.add(Fireworks.Vector.getRandom(1, this.dimension * (_canvasWidth / 20)));
                 let particle = new Fireworks.Particle(position, this.particleShape, radiusParticle, this.color);
                 particle.explode();
                 particle.draw(_context);
