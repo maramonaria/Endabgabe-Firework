@@ -13,7 +13,7 @@ var Fireworks;
                 for (let i = 0; i < this.particleCount; i++) {
                     newVelocity = Fireworks.Vector.getRandom(5, 100);
                     let particle = new Fireworks.Particle(this.explosionCenter, this.particleShape, Fireworks.viewportWidth / 200, this.color, newVelocity);
-                    particle.lifetime = this.dimension * 60 + Math.random() * 60;
+                    particle.lifetime = this.dimension * 50 + Math.random() * 50;
                     particle.explode();
                     this.particles.push(particle);
                 }
