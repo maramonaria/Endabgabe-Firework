@@ -37,6 +37,8 @@ var Fireworks;
                 case "retrieve":
                     retrieveAll(_request, _response);
                     break;
+                case "delete":
+                    deleteRocket(_request, _response, url);
                 default:
                     let jsonString = JSON.stringify(url.query);
                     _response.write(jsonString);
@@ -54,6 +56,10 @@ var Fireworks;
         Fireworks.rocketCreations = await results.toArray();
         _response.write(JSON.stringify(Fireworks.rocketCreations));
         _response.end();
+    }
+    async function deleteRocket(_request, _response, _url) {
+        let rocketId = _url.query["id"];
+        rocketsCollection.deleteOne({ "_id": rocketId });
     }
 })(Fireworks = exports.Fireworks || (exports.Fireworks = {}));
 //# sourceMappingURL=server.js.map

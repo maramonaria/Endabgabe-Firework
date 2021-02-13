@@ -53,6 +53,8 @@ export namespace Fireworks {
                 case "retrieve":
                     retrieveAll(_request, _response);
                     break;
+                case "delete":
+                    deleteRocket(_request, _response, url);
                 default:
                     let jsonString: string = JSON.stringify(url.query);
                     _response.write(jsonString);
@@ -76,4 +78,9 @@ export namespace Fireworks {
 
         _response.end();
     }    
+
+    async function deleteRocket(_request: Http.IncomingMessage, _response: Http.ServerResponse, _url: Url.UrlWithParsedQuery): Promise<void> {
+        let rocketId: undefined | string | string[] = _url.query["id"];
+        rocketsCollection.deleteOne({ "_id": rocketId });
+    }
 }

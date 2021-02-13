@@ -91,10 +91,22 @@ var Fireworks;
                         rocket.drawPreview(miniContext, miniCanvas.width, miniCanvas.height);
                         break;
                 }
+                //delete button
+                let deleteButton = document.createElement("button");
+                deleteButton.setAttribute("id", rocketObject["_id"]);
+                deleteButton.addEventListener("click", deleteThisRocket);
                 section.appendChild(miniCanvas);
+                section.appendChild(deleteButton);
                 index += 1;
             }
         }
+    }
+    async function deleteThisRocket(_event) {
+        let target = _event.target;
+        let response = await fetch(url + "?" + "command=delete&id=" + target.id);
+        let text = await response.text();
+        alert(text);
+        handleLoad();
     }
     function handleDragStart(_event) {
         if (!_event.dataTransfer)

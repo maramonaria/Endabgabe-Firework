@@ -116,12 +116,27 @@ namespace Fireworks {
                         rocketminions.push(rocket);
                         rocket.drawPreview(miniContext, miniCanvas.width, miniCanvas.height);
                         break;
-                }    
+                }  
+                
+                //delete button
+                let deleteButton: HTMLButtonElement = <HTMLButtonElement>document.createElement("button");
+                deleteButton.setAttribute("id", rocketObject["_id"]);
+                deleteButton.addEventListener("click", deleteThisRocket);
         
                 section.appendChild(miniCanvas);
+                section.appendChild(deleteButton);
                 index += 1;
             }   
         }
+    }
+
+    async function deleteThisRocket (_event: Event): Promise<void> {
+        let target: HTMLButtonElement = <HTMLButtonElement>_event.target;
+        
+        let response: Response = await fetch(url + "?" + "command=delete&id=" + target.id); 
+        let text: string = await response.text();
+        alert(text);
+        handleLoad();
     }
 
     function handleDragStart(_event: DragEvent): void {
@@ -171,7 +186,6 @@ namespace Fireworks {
     }
 
     function update(): void {
-
         crc2.save();
         crc2.fillStyle = "HSLA(231, 54%, 3%, 0.1)";
         crc2.fillRect(0, 0, crc2.canvas.width, crc2.canvas.height);
