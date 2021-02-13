@@ -135,8 +135,8 @@ namespace Fireworks {
         
         let response: Response = await fetch(url + "?" + "command=delete&id=" + target.id); 
         let text: string = await response.text();
-        alert(text);
         handleLoad();
+        alert(text);
     }
 
     function handleDragStart(_event: DragEvent): void {

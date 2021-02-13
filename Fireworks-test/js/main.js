@@ -105,8 +105,8 @@ var Fireworks;
         let target = _event.target;
         let response = await fetch(url + "?" + "command=delete&id=" + target.id);
         let text = await response.text();
-        alert(text);
         handleLoad();
+        alert(text);
     }
     function handleDragStart(_event) {
         if (!_event.dataTransfer)
