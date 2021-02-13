@@ -80,6 +80,7 @@ export namespace Fireworks {
     }    
 
     async function deleteRocket(_request: Http.IncomingMessage, _response: Http.ServerResponse, _url: Url.UrlWithParsedQuery): Promise<void> {
+        console.log("deletin");
         let rocketId: undefined | string | string[] = _url.query["id"];
         rocketsCollection.deleteOne({ "_id": rocketId });
     }

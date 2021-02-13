@@ -58,6 +58,7 @@ var Fireworks;
         _response.end();
     }
     async function deleteRocket(_request, _response, _url) {
+        console.log("deletin");
         let rocketId = _url.query["id"];
         rocketsCollection.deleteOne({ "_id": rocketId });
     }
