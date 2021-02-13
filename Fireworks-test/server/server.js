@@ -42,9 +42,7 @@ var Fireworks;
                     deleteRocket(_request, _response);
                     break;
                 default:
-                    let jsonString = JSON.stringify(url.query);
-                    _response.write(jsonString);
-                    console.log("Query: ", url.query);
+                    _response.write("Rocket sent!");
                     storeRocket(url.query);
                     _response.end();
             }
@@ -69,6 +67,7 @@ var Fireworks;
                 console.log("delete Object with Id: ", objectId);
                 if (rocketId != undefined)
                     rocketsCollection.deleteOne({ "_id": objectId });
+                _response.write("Rocket deleted!");
             }
         }
         _response.end();
