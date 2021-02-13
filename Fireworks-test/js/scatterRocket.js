@@ -9,10 +9,10 @@ var Fireworks;
             _context.save();
             let radiusParticle;
             if (_context == Fireworks.previewContext) {
-                radiusParticle = Fireworks.viewportWidth / 200;
+                radiusParticle = Fireworks.viewportWidth / 300;
             }
             else {
-                radiusParticle = _canvasWidth / 20;
+                radiusParticle = _canvasWidth / 30;
             }
             let position;
             for (let i = 0; i < this.particleCount; i++) {

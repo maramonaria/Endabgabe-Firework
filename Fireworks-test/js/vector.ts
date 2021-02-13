@@ -21,7 +21,7 @@ namespace Fireworks {
             return vector;
         }
 
-        public get length(): number {
+        public getlength(): number {
             return Math.hypot(this.x, this.y);
         }
 

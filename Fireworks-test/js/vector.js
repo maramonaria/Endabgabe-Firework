@@ -16,7 +16,7 @@ var Fireworks;
             vector.scale(length);
             return vector;
         }
-        get length() {
+        getlength() {
             return Math.hypot(this.x, this.y);
         }
         set(_x, _y) {

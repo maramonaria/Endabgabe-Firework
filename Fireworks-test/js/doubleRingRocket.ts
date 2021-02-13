@@ -44,10 +44,10 @@ namespace Fireworks {
 
             let radiusParticle: number;
             if (_context == previewContext) {
-                radiusParticle = viewportWidth / 200;
+                radiusParticle = viewportWidth / 300;
             }
             else {
-               radiusParticle = _canvasWidth / 20; 
+               radiusParticle = _canvasWidth / 30; 
             }
             let position: Vector;
 

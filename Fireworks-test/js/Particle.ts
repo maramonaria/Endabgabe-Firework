@@ -1,6 +1,5 @@
 namespace Fireworks {
     export class Particle {
-        protected static maxLifetime: number = 50 + Math.random() * 50;
         public position: Vector;
         public velocity: Vector;
         shape: string;
@@ -8,7 +7,7 @@ namespace Fireworks {
         color: string;
         exploded: boolean = false;
         gravity: number = 0.06;
-        lifetime: number = Particle.maxLifetime;
+        public lifetime: number;
 
         constructor(_position: Vector, _shape: string, _size: number, _color: string, _velocity?: Vector) {
             this.position = _position.copy();

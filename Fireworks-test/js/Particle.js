@@ -5,7 +5,6 @@ var Fireworks;
         constructor(_position, _shape, _size, _color, _velocity) {
             this.exploded = false;
             this.gravity = 0.06;
-            this.lifetime = Particle.maxLifetime;
             this.position = _position.copy();
             this.shape = _shape;
             this.size = _size;
@@ -87,7 +86,6 @@ var Fireworks;
             _context.restore();
         }
     }
-    Particle.maxLifetime = 50 + Math.random() * 50;
     Fireworks.Particle = Particle;
 })(Fireworks || (Fireworks = {}));
 //# sourceMappingURL=Particle.js.map

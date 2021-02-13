@@ -13,12 +13,14 @@ var Fireworks;
             if (this.particles.length == 1 && (this.particles[0].position.y - this.explosionCenter.y) < 1 && !this.particles[0].exploded) {
                 this.particles.splice(0, 1);
                 let newVelocity;
-                let explosionRadius = this.dimension * 100;
+                //let explosionRadius: number = this.dimension * 100;
                 for (let i = 0; i < this.particleCount; i++) {
                     let a = 2 * Math.PI * i / this.particleCount;
-                    let ringPosition = new Fireworks.Vector(this.explosionCenter.x + explosionRadius * Math.sin(a), this.explosionCenter.y + explosionRadius * Math.cos(a));
+                    //let ringPosition: Vector = new Vector(this.explosionCenter.x + explosionRadius * Math.sin(a), this.explosionCenter.y + explosionRadius * Math.cos(a));
+                    let ringPosition = new Fireworks.Vector(this.explosionCenter.x + 50 * Math.sin(a), this.explosionCenter.y + 50 * Math.cos(a));
                     newVelocity = Fireworks.Vector.getDifference(this.explosionCenter, ringPosition);
                     let particle = new Fireworks.Particle(this.explosionCenter, this.particleShape, Fireworks.viewportWidth / 200, this.color, newVelocity);
+                    particle.lifetime = this.dimension * 100 + Math.random() * 20;
                     particle.explode();
                     this.particles.push(particle);
                 }
@@ -29,10 +31,10 @@ var Fireworks;
             _context.save();
             let radiusParticle;
             if (_context == Fireworks.previewContext) {
-                radiusParticle = Fireworks.viewportWidth / 200;
+                radiusParticle = Fireworks.viewportWidth / 300;
             }
             else {
-                radiusParticle = _canvasWidth / 20;
+                radiusParticle = _canvasWidth / 30;
             }
             let position;
             let explosionRadius = _canvasWidth / 7 * this.dimension;
