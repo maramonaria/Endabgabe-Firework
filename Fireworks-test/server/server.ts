@@ -85,8 +85,15 @@ export namespace Fireworks {
         console.log("deleting");
         if (_request.url) {
             let url: Url.UrlWithParsedQuery = Url.parse(_request.url, true);
-            let rocketId: undefined | string | string[] = url.query["id"];
-            rocketsCollection.deleteOne({ "_id": rocketId });
+            if (url.query["id"] != undefined) {
+                let rocketId: string | string[] = "" + url.query["id"];
+                let objectId: Mongo.ObjectID = new Mongo.ObjectId(rocketId.toString());
+
+                if (rocketId != undefined)
+                    rocketsCollection.deleteOne({ "_id": objectId });
+            }
+                
+
         }
 
     }

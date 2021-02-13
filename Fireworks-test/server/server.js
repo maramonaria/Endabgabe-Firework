@@ -63,8 +63,12 @@ var Fireworks;
         console.log("deleting");
         if (_request.url) {
             let url = Url.parse(_request.url, true);
-            let rocketId = url.query["id"];
-            rocketsCollection.deleteOne({ "_id": rocketId });
+            if (url.query["id"] != undefined) {
+                let rocketId = "" + url.query["id"];
+                let objectId = new Mongo.ObjectId(rocketId.toString());
+                if (rocketId != undefined)
+                    rocketsCollection.deleteOne({ "_id": objectId });
+            }
         }
     }
 })(Fireworks = exports.Fireworks || (exports.Fireworks = {}));
