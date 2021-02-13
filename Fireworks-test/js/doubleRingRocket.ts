@@ -10,8 +10,8 @@ namespace Fireworks {
             if (this.particles.length == 1 && (this.particles[0].position.y - this.explosionCenter.y) < 1 && !this.particles[0].exploded) {
                 this.particles.splice(0, 1);
 
-                let explosionRadiusBig: number = 50; //larger ring
-                let explosionRadiusSmall: number = 30; //smaller ring
+                let explosionRadiusBig: number = 30; //larger ring
+                let explosionRadiusSmall: number = 20; //smaller ring
 
                 let ringPosition: Vector;
                 let newVelocity: Vector;
@@ -30,7 +30,7 @@ namespace Fireworks {
                     }
                     
                     particle = new Particle(this.explosionCenter, this.particleShape, viewportWidth / 200, this.color, newVelocity);
-                    particle.lifetime = this.dimension * 100 + Math.random() * 20;
+                    particle.lifetime = this.dimension * 50 + Math.random() * 20;
                     particle.explode();
                     this.particles.push(particle);
 

@@ -9,8 +9,8 @@ var Fireworks;
             // if startingParticle is ready to explode: initiate all exploded Particles
             if (this.particles.length == 1 && (this.particles[0].position.y - this.explosionCenter.y) < 1 && !this.particles[0].exploded) {
                 this.particles.splice(0, 1);
-                let explosionRadiusBig = 50; //larger ring
-                let explosionRadiusSmall = 30; //smaller ring
+                let explosionRadiusBig = 30; //larger ring
+                let explosionRadiusSmall = 20; //smaller ring
                 let ringPosition;
                 let newVelocity;
                 for (let i = 0; i < this.particleCount * 2; i++) {
@@ -25,7 +25,7 @@ var Fireworks;
                         newVelocity = Fireworks.Vector.getDifference(this.explosionCenter, ringPosition);
                     }
                     particle = new Fireworks.Particle(this.explosionCenter, this.particleShape, Fireworks.viewportWidth / 200, this.color, newVelocity);
-                    particle.lifetime = this.dimension * 100 + Math.random() * 20;
+                    particle.lifetime = this.dimension * 50 + Math.random() * 20;
                     particle.explode();
                     this.particles.push(particle);
                 }

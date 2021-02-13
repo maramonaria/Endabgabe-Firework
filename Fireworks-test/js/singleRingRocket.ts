@@ -20,7 +20,7 @@ namespace Fireworks {
                 for (let i: number = 0; i < this.particleCount; i++) {
                     let a: number = 2 * Math.PI * i / this.particleCount;
                     //let ringPosition: Vector = new Vector(this.explosionCenter.x + explosionRadius * Math.sin(a), this.explosionCenter.y + explosionRadius * Math.cos(a));
-                    let ringPosition: Vector = new Vector(this.explosionCenter.x + 50 * Math.sin(a), this.explosionCenter.y + 50 * Math.cos(a));
+                    let ringPosition: Vector = new Vector(this.explosionCenter.x + 30 * Math.sin(a), this.explosionCenter.y + 30 * Math.cos(a));
 
                     newVelocity = Vector.getDifference(this.explosionCenter, ringPosition);
                     let particle: Particle = new Particle(this.explosionCenter, this.particleShape, viewportWidth / 200, this.color, newVelocity);
