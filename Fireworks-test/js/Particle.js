@@ -61,12 +61,13 @@ var Fireworks;
                         _context.restore();
                         break;
                     case "star":
+                        let particleSize = this.size * 2;
                         _context.save();
                         _context.beginPath();
-                        _context.moveTo(0, this.size);
+                        _context.moveTo(0, particleSize);
                         let points = 5;
                         for (let i = 0; i < 2 * points + 1; i++) {
-                            let r = (i % 2 == 0) ? this.size : (this.size / 2);
+                            let r = (i % 2 == 0) ? particleSize : (particleSize / 2);
                             let a = Math.PI * i / points;
                             _context.lineTo(0 + r * Math.sin(a), 0 + r * Math.cos(a));
                         }
