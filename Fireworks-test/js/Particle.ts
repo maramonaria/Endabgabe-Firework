@@ -1,6 +1,6 @@
 namespace Fireworks {
     export class Particle {
-        public static gravity: number = 1;
+        public static gravity: number = .5;
         public position: Vector;
         public velocity: Vector;
         public lifetime: number;
@@ -29,7 +29,7 @@ namespace Fireworks {
         }
 
         move(_timeslice: number): void {
-            if (this.lifetime < 100) {
+            if (this.lifetime < 120) {
                 this.velocity.y += Particle.gravity;
             }
 

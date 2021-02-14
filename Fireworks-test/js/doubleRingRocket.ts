@@ -30,7 +30,7 @@ namespace Fireworks {
                     }
                     
                     particle = new Particle(this.explosionCenter, this.particleShape, viewportWidth / 200, this.color, newVelocity);
-                    particle.lifetime = this.dimension * 150 + Math.random() * 20;
+                    particle.lifetime = this.dimension * 150 + Math.random() * 50;
                     particle.explode();
                     this.particles.push(particle);
 

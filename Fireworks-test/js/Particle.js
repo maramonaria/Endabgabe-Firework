@@ -20,7 +20,7 @@ var Fireworks;
             this.exploded = true;
         }
         move(_timeslice) {
-            if (this.lifetime < 100) {
+            if (this.lifetime < 120) {
                 this.velocity.y += Particle.gravity;
             }
             let offset = this.velocity.copy();
@@ -89,7 +89,7 @@ var Fireworks;
             _context.restore();
         }
     }
-    Particle.gravity = 1;
+    Particle.gravity = .5;
     Fireworks.Particle = Particle;
 })(Fireworks || (Fireworks = {}));
 //# sourceMappingURL=Particle.js.map

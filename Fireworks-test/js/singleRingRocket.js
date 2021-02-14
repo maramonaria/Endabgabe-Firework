@@ -19,7 +19,7 @@ var Fireworks;
                     let ringPosition = new Fireworks.Vector(this.explosionCenter.x + 40 * Math.sin(a), this.explosionCenter.y + 40 * Math.cos(a));
                     newVelocity = Fireworks.Vector.getDifference(this.explosionCenter, ringPosition);
                     let particle = new Fireworks.Particle(this.explosionCenter, this.particleShape, Fireworks.viewportWidth / 200, this.color, newVelocity);
-                    particle.lifetime = this.dimension * 150 + Math.random() * 20;
+                    particle.lifetime = this.dimension * 150 + Math.random() * 50;
                     particle.explode();
                     this.particles.push(particle);
                 }
