@@ -29,7 +29,7 @@ namespace Fireworks {
         }
 
         move(_timeslice: number): void {
-            if (this.lifetime < 120) {
+            if (this.lifetime < 120 && this.exploded) {
                 this.velocity.y += Particle.gravity;
             }
 
