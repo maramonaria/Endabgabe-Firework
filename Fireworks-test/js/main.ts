@@ -42,7 +42,7 @@ namespace Fireworks {
 
         
         form = <HTMLFormElement>document.querySelector("form");
-        form.addEventListener("change", handleChange);
+        form.addEventListener("change", updatePreview);
 
         let submit: HTMLButtonElement = <HTMLButtonElement>document.querySelector("button[id=submitbutton]");
         submit.addEventListener("click", sendRocket);
@@ -208,10 +208,6 @@ namespace Fireworks {
         }
     }
 
-    function handleChange(_event: Event): void {
-        updatePreview();
-    }
-
     function updatePreview(): void {
         previewContext.save();
         previewContext.fillStyle = "#03040a";
@@ -252,5 +248,5 @@ namespace Fireworks {
     function onWindowResize(): void {
         viewportWidth = window.innerWidth;
         viewportHeight = window.innerHeight;
-      }
+    }
 }

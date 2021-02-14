@@ -35,7 +35,6 @@ namespace Fireworks {
                     this.particles.push(particle);
 
                 }
-
             }
             super.move(_timeslice);
         }

@@ -26,7 +26,7 @@ var Fireworks;
         Fireworks.previewCanvas.height = Fireworks.viewportWidth / 100 * 20;
         Fireworks.previewContext = Fireworks.previewCanvas.getContext("2d");
         form = document.querySelector("form");
-        form.addEventListener("change", handleChange);
+        form.addEventListener("change", updatePreview);
         let submit = document.querySelector("button[id=submitbutton]");
         submit.addEventListener("click", sendRocket);
         updatePreview();
@@ -164,9 +164,6 @@ var Fireworks;
             }
             i += 1;
         }
-    }
-    function handleChange(_event) {
-        updatePreview();
     }
     function updatePreview() {
         Fireworks.previewContext.save();
