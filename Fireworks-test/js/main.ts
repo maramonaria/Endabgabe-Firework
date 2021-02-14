@@ -1,6 +1,6 @@
 namespace Fireworks {
 
-    window.addEventListener("load", handleLoad);
+    window.addEventListener("load", setup);
     window.addEventListener("resize", onWindowResize);
 
     export let fireworkCanvas: HTMLCanvasElement | null;

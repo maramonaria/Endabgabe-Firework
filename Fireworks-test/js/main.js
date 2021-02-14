@@ -1,7 +1,7 @@
 "use strict";
 var Fireworks;
 (function (Fireworks) {
-    window.addEventListener("load", handleLoad);
+    window.addEventListener("load", setup);
     window.addEventListener("resize", onWindowResize);
     let form;
     let rocketminions; // will contain all existing rockets from database
