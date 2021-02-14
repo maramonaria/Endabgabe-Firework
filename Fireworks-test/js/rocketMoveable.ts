@@ -32,7 +32,7 @@ namespace Fireworks {
             let i: number = 0; // index of particle in particles array
             for (let particle of this.particles) {
                 if (particle.exploded) {
-                particle.lifetime -= 1;
+                    particle.lifetime -= 1;
                 }
                 particle.move(_timeslice);
 

@@ -21,7 +21,7 @@ namespace Fireworks {
                 this.velocity = _velocity.copy();
             }   
 
-            this.lifetime = 100 + Math.random() * 20;
+            this.lifetime = 150 + Math.random() * 20;
         }
 
         explode(): void {
