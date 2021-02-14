@@ -34,10 +34,11 @@ export namespace Fireworks {
         let options: Mongo.MongoClientOptions = {useNewUrlParser: true, useUnifiedTopology: true};
         let mongoClient: Mongo.MongoClient = new Mongo.MongoClient(_url, options);
 
-        mongoClient.connect(err => {
-            rocketsCollection = mongoClient.db("RocketScience").collection("Rockets");
-            console.log("Database connection ", rocketsCollection != undefined);
-        });
+        await mongoClient.connect();
+
+        rocketsCollection = mongoClient.db("RocketScience").collection("Rockets");
+        console.log("Database connection ", rocketsCollection != undefined);
+
     }
 
     function handleRequest(_request: Http.IncomingMessage, _response: Http.ServerResponse): void {

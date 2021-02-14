@@ -21,10 +21,9 @@ var Fireworks;
     async function connectToDatabase(_url) {
         let options = { useNewUrlParser: true, useUnifiedTopology: true };
         let mongoClient = new Mongo.MongoClient(_url, options);
-        mongoClient.connect(err => {
-            rocketsCollection = mongoClient.db("RocketScience").collection("Rockets");
-            console.log("Database connection ", rocketsCollection != undefined);
-        });
+        await mongoClient.connect();
+        rocketsCollection = mongoClient.db("RocketScience").collection("Rockets");
+        console.log("Database connection ", rocketsCollection != undefined);
     }
     function handleRequest(_request, _response) {
         console.log("What's up?");
