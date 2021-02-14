@@ -1,13 +1,13 @@
 namespace Fireworks {
     export class Particle {
+        public static gravity: number = 1;
         public position: Vector;
         public velocity: Vector;
+        public lifetime: number;
         shape: string;
         size: number; //width of particle
         color: string;
         exploded: boolean = false;
-        gravity: number = 0.06;
-        public lifetime: number;
 
         constructor(_position: Vector, _shape: string, _size: number, _color: string, _velocity?: Vector) {
             this.position = _position.copy();
@@ -29,6 +29,9 @@ namespace Fireworks {
         }
 
         move(_timeslice: number): void {
+            if (this.lifetime < 80) {
+                this.velocity.y += Particle.gravity;
+            }
 
             let offset: Vector = this.velocity.copy();
             offset.scale(_timeslice);

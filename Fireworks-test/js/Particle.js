@@ -4,7 +4,6 @@ var Fireworks;
     class Particle {
         constructor(_position, _shape, _size, _color, _velocity) {
             this.exploded = false;
-            this.gravity = 0.06;
             this.position = _position.copy();
             this.shape = _shape;
             this.size = _size;
@@ -21,6 +20,9 @@ var Fireworks;
             this.exploded = true;
         }
         move(_timeslice) {
+            if (this.lifetime < 80) {
+                this.velocity.y += Particle.gravity;
+            }
             let offset = this.velocity.copy();
             offset.scale(_timeslice);
             this.position.add(offset);
@@ -87,6 +89,7 @@ var Fireworks;
             _context.restore();
         }
     }
+    Particle.gravity = 1;
     Fireworks.Particle = Particle;
 })(Fireworks || (Fireworks = {}));
 //# sourceMappingURL=Particle.js.map
