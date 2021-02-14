@@ -154,7 +154,7 @@ var Fireworks;
         for (let rocket of rockets) {
             if (!rocket.expired) {
                 Fireworks.crc2.save();
-                rocket.move(1 / 100);
+                rocket.move(1 / 50);
                 rocket.draw();
                 Fireworks.crc2.restore();
             }

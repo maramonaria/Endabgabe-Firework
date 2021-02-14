@@ -196,7 +196,7 @@ namespace Fireworks {
         for (let rocket of rockets) {
             if (!rocket.expired) {
                 crc2.save();
-                rocket.move(1 / 100);
+                rocket.move(1 / 50);
                 rocket.draw();
                 crc2.restore();
             }
