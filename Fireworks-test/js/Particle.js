@@ -23,6 +23,9 @@ var Fireworks;
             if (this.lifetime < 120 && this.exploded) {
                 this.velocity.y += Particle.gravity;
             }
+            else if (this.exploded) {
+                this.velocity.scale(0.9); // ease velocity
+            }
             let offset = this.velocity.copy();
             offset.scale(_timeslice);
             this.position.add(offset);
