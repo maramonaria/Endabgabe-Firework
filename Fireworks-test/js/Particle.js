@@ -20,7 +20,7 @@ var Fireworks;
             this.exploded = true;
         }
         move(_timeslice) {
-            if (this.lifetime < 80) {
+            if (this.lifetime < 100) {
                 this.velocity.y += Particle.gravity;
             }
             let offset = this.velocity.copy();
