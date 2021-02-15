@@ -17,11 +17,11 @@ var Fireworks;
         // Drop functionality for main canvas
         Fireworks.fireworkCanvas.addEventListener("drop", handleDrop);
         Fireworks.fireworkCanvas.addEventListener("dragover", handleDragOver);
-        onWindowResize();
         form = document.querySelector("form");
         form.addEventListener("change", updatePreview);
         let submit = document.querySelector("button[id=submitbutton]");
         submit.addEventListener("click", sendRocket);
+        onWindowResize();
         window.setInterval(update, 20);
     }
     async function sendRocket(_event) {

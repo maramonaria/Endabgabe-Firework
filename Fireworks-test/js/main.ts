@@ -29,13 +29,13 @@ namespace Fireworks {
         fireworkCanvas.addEventListener("drop", handleDrop);
         fireworkCanvas.addEventListener("dragover", handleDragOver);
 
-        onWindowResize();
+        
 
         form = <HTMLFormElement>document.querySelector("form");
         form.addEventListener("change", updatePreview);
         let submit: HTMLButtonElement = <HTMLButtonElement>document.querySelector("button[id=submitbutton]");
         submit.addEventListener("click", sendRocket);
-
+        onWindowResize();
         window.setInterval(update, 20);
     }
 
