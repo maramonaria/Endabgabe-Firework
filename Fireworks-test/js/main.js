@@ -10,7 +10,6 @@ var Fireworks;
     let url = "https://rocketsciencecenter.herokuapp.com";
     async function handleLoad() {
         console.log("Fireworks starting");
-        getSavedRocketsFromDb();
         Fireworks.fireworkCanvas = document.querySelector("canvas[id=bgsky]");
         Fireworks.crc2 = Fireworks.fireworkCanvas.getContext("2d");
         Fireworks.previewCanvas = document.querySelector("canvas[id=preview]");
@@ -23,7 +22,6 @@ var Fireworks;
         form.addEventListener("change", updatePreview);
         let submit = document.querySelector("button[id=submitbutton]");
         submit.addEventListener("click", sendRocket);
-        updatePreview();
         window.setInterval(update, 20);
     }
     async function sendRocket(_event) {
@@ -199,6 +197,8 @@ var Fireworks;
         Fireworks.fireworkCanvas.height = Fireworks.viewportHeight;
         Fireworks.previewCanvas.width = Fireworks.viewportWidth / 100 * 20;
         Fireworks.previewCanvas.height = Fireworks.viewportWidth / 100 * 20;
+        getSavedRocketsFromDb();
+        updatePreview();
     }
 })(Fireworks || (Fireworks = {}));
 //# sourceMappingURL=main.js.map

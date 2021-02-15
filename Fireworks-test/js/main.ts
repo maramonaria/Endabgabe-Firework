@@ -19,7 +19,6 @@ namespace Fireworks {
 
     async function handleLoad(): Promise<void> {
         console.log("Fireworks starting");
-        getSavedRocketsFromDb();
         fireworkCanvas = <HTMLCanvasElement>document.querySelector("canvas[id=bgsky]");
         crc2 = <CanvasRenderingContext2D>fireworkCanvas.getContext("2d");
 
@@ -37,7 +36,6 @@ namespace Fireworks {
         let submit: HTMLButtonElement = <HTMLButtonElement>document.querySelector("button[id=submitbutton]");
         submit.addEventListener("click", sendRocket);
 
-        updatePreview();
         window.setInterval(update, 20);
     }
 
@@ -244,5 +242,7 @@ namespace Fireworks {
         fireworkCanvas.height = viewportHeight;
         previewCanvas.width = viewportWidth / 100 * 20;
         previewCanvas.height = viewportWidth / 100 * 20;
+        getSavedRocketsFromDb();
+        updatePreview();
     }
 }
