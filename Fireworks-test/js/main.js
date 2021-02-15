@@ -11,6 +11,7 @@ var Fireworks;
     async function handleLoad() {
         console.log("Fireworks starting");
         getSavedRocketsFromDb();
+        setupRocketMinions();
         onWindowResize(); //get vieport measurements
         Fireworks.fireworkCanvas = document.querySelector("canvas[id=bgsky]");
         if (!Fireworks.fireworkCanvas)
@@ -47,7 +48,6 @@ var Fireworks;
         let response = await fetch(url + "?" + "command=retrieve");
         rocketsFromDb = await response.json();
         console.log("RocketsfromDb: ", rocketsFromDb);
-        setupRocketMinions();
     }
     function setupRocketMinions() {
         // clear all pre-existing rocketminions from array and html

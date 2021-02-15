@@ -18,12 +18,11 @@ var Fireworks;
                     let particle;
                     if (i % 2 == 0) {
                         ringPosition = new Fireworks.Vector(this.explosionCenter.x + explosionRadiusBig * Math.sin(a), this.explosionCenter.y + explosionRadiusBig * Math.cos(a));
-                        newVelocity = Fireworks.Vector.getDifference(this.explosionCenter, ringPosition);
                     }
                     else {
                         ringPosition = new Fireworks.Vector(this.explosionCenter.x + explosionRadiusSmall * Math.sin(a), this.explosionCenter.y + explosionRadiusSmall * Math.cos(a));
-                        newVelocity = Fireworks.Vector.getDifference(this.explosionCenter, ringPosition);
                     }
+                    newVelocity = Fireworks.Vector.getDifference(this.explosionCenter, ringPosition);
                     particle = new Fireworks.Particle(this.explosionCenter, this.particleShape, Fireworks.viewportWidth / 200, this.color, newVelocity);
                     particle.lifetime = this.dimension * 150 + Math.random() * 50;
                     particle.explode();

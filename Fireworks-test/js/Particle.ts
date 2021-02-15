@@ -31,7 +31,7 @@ namespace Fireworks {
         move(_timeslice: number): void {
             if (this.lifetime < 120 && this.exploded) {
                 this.velocity.y += Particle.gravity;
-            }
+            } 
 
             let offset: Vector = this.velocity.copy();
             offset.scale(_timeslice);

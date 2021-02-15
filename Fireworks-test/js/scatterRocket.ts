@@ -8,7 +8,7 @@ namespace Fireworks {
         move(_timeslice: number): void {
             // if startingParticle is ready to explode: initiate all exploded Particles
             if (this.particles.length == 1 && (this.particles[0].position.y - this.explosionCenter.y) < 1 && !this.particles[0].exploded) {
-                this.particles.splice(0, 1);
+                this.particles.splice(0, 1); // remove starting particle
                 let newVelocity: Vector;
 
                 for (let i: number = 0; i < this.particleCount; i++) {

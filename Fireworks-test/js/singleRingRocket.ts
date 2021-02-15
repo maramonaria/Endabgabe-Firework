@@ -54,7 +54,7 @@ namespace Fireworks {
                 particle.draw(_context);
             }
             _context.restore();
-            super.drawPreview(_context, _canvasWidth, _canvasHeight);
+            super.drawPreview(_context, _canvasWidth, _canvasHeight); 
         }
 
         public copy(): SingleRingRocket {

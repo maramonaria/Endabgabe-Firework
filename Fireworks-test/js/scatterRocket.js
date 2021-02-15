@@ -8,7 +8,7 @@ var Fireworks;
         move(_timeslice) {
             // if startingParticle is ready to explode: initiate all exploded Particles
             if (this.particles.length == 1 && (this.particles[0].position.y - this.explosionCenter.y) < 1 && !this.particles[0].exploded) {
-                this.particles.splice(0, 1);
+                this.particles.splice(0, 1); // remove starting particle
                 let newVelocity;
                 for (let i = 0; i < this.particleCount; i++) {
                     newVelocity = Fireworks.Vector.getRandom(5, 100);
