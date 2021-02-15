@@ -4,7 +4,7 @@ var Fireworks;
     window.addEventListener("load", handleLoad);
     window.addEventListener("resize", handleLoad);
     let form;
-    let rocketminions; // will contain all existing rockets from database
+    let rocketminions = []; // will contain all existing rockets from database
     let rockets = []; // rockets that are currently doing their thing on screen
     let rocketsFromDb;
     let url = "https://rocketsciencecenter.herokuapp.com";
@@ -39,7 +39,7 @@ var Fireworks;
         let response = await fetch(url + "?" + query.toString());
         let responseText = await response.text();
         alert(responseText);
-        handleLoad();
+        getSavedRocketsFromDb();
         form.reset();
         updatePreview();
     }

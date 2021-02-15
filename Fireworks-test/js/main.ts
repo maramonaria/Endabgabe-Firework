@@ -11,7 +11,7 @@ namespace Fireworks {
     export let previewContext: CanvasRenderingContext2D;
     
     let form: HTMLFormElement;
-    let rocketminions: Rocket[]; // will contain all existing rockets from database
+    let rocketminions: Rocket[] = []; // will contain all existing rockets from database
     let rockets: Rocket[] = []; // rockets that are currently doing their thing on screen
     let rocketsFromDb: any;
 
@@ -57,7 +57,7 @@ namespace Fireworks {
         let responseText: string = await response.text();
         alert(responseText);
         
-        handleLoad();
+        getSavedRocketsFromDb();
         form.reset();
         updatePreview();
     }
