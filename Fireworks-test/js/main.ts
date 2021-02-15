@@ -20,7 +20,6 @@ namespace Fireworks {
     async function handleLoad(): Promise<void> {
         console.log("Fireworks starting");
         getSavedRocketsFromDb();
-        setupRocketMinions();
 
         onWindowResize(); //get vieport measurements
 
@@ -67,6 +66,7 @@ namespace Fireworks {
         let response: Response = await fetch(url + "?" + "command=retrieve"); 
         rocketsFromDb = await response.json();
         console.log("RocketsfromDb: ", rocketsFromDb);
+        setupRocketMinions();
     }
 
     function setupRocketMinions(): void {
