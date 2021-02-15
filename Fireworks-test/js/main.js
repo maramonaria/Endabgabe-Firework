@@ -2,7 +2,7 @@
 var Fireworks;
 (function (Fireworks) {
     window.addEventListener("load", handleLoad);
-    window.addEventListener("resize", handleLoad);
+    window.addEventListener("resize", onWindowResize);
     let form;
     let rocketminions = []; // will contain all existing rockets from database
     let rockets = []; // rockets that are currently doing their thing on screen
@@ -11,20 +11,13 @@ var Fireworks;
     async function handleLoad() {
         console.log("Fireworks starting");
         getSavedRocketsFromDb();
-        //onWindowResize(); //get vieport measurements
         Fireworks.fireworkCanvas = document.querySelector("canvas[id=bgsky]");
-        //if (!fireworkCanvas)
-        //    return;
-        //fireworkCanvas.width = viewportWidth / 100 * 60;
-        //fireworkCanvas.height = viewportHeight;
         Fireworks.crc2 = Fireworks.fireworkCanvas.getContext("2d");
+        Fireworks.previewCanvas = document.querySelector("canvas[id=preview]");
+        Fireworks.previewContext = Fireworks.previewCanvas.getContext("2d");
         // Drop functionality for main canvas
         Fireworks.fireworkCanvas.addEventListener("drop", handleDrop);
         Fireworks.fireworkCanvas.addEventListener("dragover", handleDragOver);
-        Fireworks.previewCanvas = document.querySelector("canvas[id=preview]");
-        //previewCanvas.width = viewportWidth / 100 * 20;
-        //previewCanvas.height = viewportWidth / 100 * 20;
-        Fireworks.previewContext = Fireworks.previewCanvas.getContext("2d");
         onWindowResize();
         form = document.querySelector("form");
         form.addEventListener("change", updatePreview);

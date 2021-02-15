@@ -1,7 +1,7 @@
 namespace Fireworks {
 
     window.addEventListener("load", handleLoad);
-    window.addEventListener("resize", handleLoad);
+    window.addEventListener("resize", onWindowResize);
 
     export let fireworkCanvas: HTMLCanvasElement | null;
     export let crc2: CanvasRenderingContext2D;
@@ -20,29 +20,20 @@ namespace Fireworks {
     async function handleLoad(): Promise<void> {
         console.log("Fireworks starting");
         getSavedRocketsFromDb();
-
-        //onWindowResize(); //get vieport measurements
-
         fireworkCanvas = <HTMLCanvasElement>document.querySelector("canvas[id=bgsky]");
-        //if (!fireworkCanvas)
-        //    return;
-        //fireworkCanvas.width = viewportWidth / 100 * 60;
-        //fireworkCanvas.height = viewportHeight;
         crc2 = <CanvasRenderingContext2D>fireworkCanvas.getContext("2d");
+
+        previewCanvas = <HTMLCanvasElement>document.querySelector("canvas[id=preview]");
+        previewContext = <CanvasRenderingContext2D>previewCanvas.getContext("2d");
 
         // Drop functionality for main canvas
         fireworkCanvas.addEventListener("drop", handleDrop);
         fireworkCanvas.addEventListener("dragover", handleDragOver);
 
-        previewCanvas = <HTMLCanvasElement>document.querySelector("canvas[id=preview]");
-        //previewCanvas.width = viewportWidth / 100 * 20;
-        //previewCanvas.height = viewportWidth / 100 * 20;
-        previewContext = <CanvasRenderingContext2D>previewCanvas.getContext("2d");
-        
         onWindowResize();
+
         form = <HTMLFormElement>document.querySelector("form");
         form.addEventListener("change", updatePreview);
-
         let submit: HTMLButtonElement = <HTMLButtonElement>document.querySelector("button[id=submitbutton]");
         submit.addEventListener("click", sendRocket);
 
