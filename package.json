@@ -2,7 +2,7 @@
   "name": "rocketsciencecenter",
   "version": "1.0.0",
   "description": "A rocket generating Application",
-  "main": "src/js/main.js",
+  "main": "src/client/main.js",
   "dependencies": {
     "@types/mongodb": "^3.6.6",
     "mongodb": "^3.6.3",
