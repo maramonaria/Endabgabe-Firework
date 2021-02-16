@@ -29,8 +29,6 @@ namespace Fireworks {
         fireworkCanvas.addEventListener("drop", handleDrop);
         fireworkCanvas.addEventListener("dragover", handleDragOver);
 
-        
-
         form = <HTMLFormElement>document.querySelector("form");
         form.addEventListener("change", updatePreview);
         let submit: HTMLButtonElement = <HTMLButtonElement>document.querySelector("button[id=submitbutton]");
@@ -124,7 +122,7 @@ namespace Fireworks {
         
         let response: Response = await fetch(url + "?" + "command=delete&id=" + target.id); 
         let text: string = await response.text();
-        handleLoad();
+        getSavedRocketsFromDb();
         alert(text);
     }
 

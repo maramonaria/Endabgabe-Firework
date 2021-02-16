@@ -98,7 +98,7 @@ var Fireworks;
         let target = _event.target;
         let response = await fetch(url + "?" + "command=delete&id=" + target.id);
         let text = await response.text();
-        handleLoad();
+        getSavedRocketsFromDb();
         alert(text);
     }
     function handleDragStart(_event) {
