@@ -75,7 +75,7 @@ namespace Fireworks {
                 miniCanvas.setAttribute("id", "rocketminion");
                 miniCanvas.setAttribute("index", index.toString());
                 miniCanvas.width = viewportWidth / 100 * 8;
-                miniCanvas.height = viewportWidth / 100 * 8;
+                miniCanvas.height = viewportWidth / 100 * 8;  
 
                 // Drag and Drop functionality
                 miniCanvas.draggable = true;
@@ -147,7 +147,6 @@ namespace Fireworks {
             return;
         
         let minionIndex: string = _event.dataTransfer.getData("rocket");
-        console.log(minionIndex);
         let rocket: Rocket = rocketminions[parseInt(minionIndex)].copy();
 
         // get the mouse position of the drop relative to the canvas

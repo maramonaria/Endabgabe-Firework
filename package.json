@@ -2,7 +2,7 @@
   "name": "rocketsciencecenter",
   "version": "1.0.0",
   "description": "A rocket generating Application",
-  "main": "Fireworks-test/js/main.js",
+  "main": "src/js/main.js",
   "dependencies": {
     "@types/mongodb": "^3.6.6",
     "mongodb": "^3.6.3",
@@ -10,7 +10,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "node Fireworks-test/server/server.js"
+    "start": "node src/server/server.js"
   },
   "repository": {
     "type": "git",

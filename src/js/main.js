@@ -117,7 +117,6 @@ var Fireworks;
         if (!_event.dataTransfer)
             return;
         let minionIndex = _event.dataTransfer.getData("rocket");
-        console.log(minionIndex);
         let rocket = rocketminions[parseInt(minionIndex)].copy();
         // get the mouse position of the drop relative to the canvas
         let mousePos;
